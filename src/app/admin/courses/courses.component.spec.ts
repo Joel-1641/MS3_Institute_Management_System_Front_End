@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OwlCarouselComponent } from './owl-carousel.component';
+import { CoursesComponent } from './courses.component';
 
-describe('OwlCarouselComponent', () => {
-  let component: OwlCarouselComponent;
-  let fixture: ComponentFixture<OwlCarouselComponent>;
+describe('CoursesComponent', () => {
+  let component: CoursesComponent;
+  let fixture: ComponentFixture<CoursesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OwlCarouselComponent]
+      imports: [CoursesComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OwlCarouselComponent);
+    fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

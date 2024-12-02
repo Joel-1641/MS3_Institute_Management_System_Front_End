@@ -1,0 +1,13 @@
+.table-responsive {
+    overflow-x: auto;
+  }
+  
+  .table th, .table td {
+    vertical-align: middle;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+  

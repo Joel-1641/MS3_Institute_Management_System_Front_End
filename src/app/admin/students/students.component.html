@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <h1>Students</h1>
+    <div class="card shadow border-0 mb-7">
+      <div class="card-header">
+        <h5 class="mb-0">Student Details</h5>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+          <thead class="thead-light">
+            <tr>
+              <th>Student Name</th>
+              <th>Applying Date</th>
+              <th>Course</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of studentsData; let i = index">
+              <td>
+                <img [src]="student.avatar" alt="Avatar" class="avatar avatar-sm rounded-circle me-2">
+                {{ student.name }}
+              </td>
+              <td>{{ student.date }}</td>
+              <td>{{ student.courseName }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-sm btn-danger" (click)="deleteStudent(i)"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
