@@ -3,13 +3,13 @@ import { Component } from '@angular/core';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @Component({
-  selector: 'app-testimonal',
-  standalone: true,
-  imports: [CommonModule, CarouselModule],
-  templateUrl: './testimonal.component.html',
-  styleUrl: './testimonal.component.css'
+  selector: 'app-owl-carousel',
+  standalone: true, // Mark the component as standalone
+  imports: [CommonModule, CarouselModule], // Import necessary modules
+  templateUrl: './owl-carousel.component.html',
+  styleUrls: ['./owl-carousel.component.css']
 })
-export class TestimonalComponent {
+export class OwlCarouselComponent {
   slides = [
     {
       text: "Please tell your friends or collegues about TemplateMo website. Anyone can access the website to download free templates. Thank you for visiting.",
@@ -46,4 +46,3 @@ export class TestimonalComponent {
     }
   };
 }
-

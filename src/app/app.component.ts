@@ -3,11 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { OwlCarouselComponent } from './owl-carousel/owl-carousel.component';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HomeComponent ,LoginComponent, DashboardComponent],
+  imports: [RouterOutlet, HomeComponent ,LoginComponent, DashboardComponent,OwlCarouselComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
