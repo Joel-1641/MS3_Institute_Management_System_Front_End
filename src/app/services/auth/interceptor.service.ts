@@ -15,22 +15,22 @@ import { AuthenticationService } from '../auth/authentication.service';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class AuthInterceptor {
   constructor(
     private authService: AuthenticationService,
     private router: Router
   ) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.authService.getToken();
+  // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  //   const token = this.authService.getToken();
 
-    // Clone the request to add the Authorization header with the token
-    const authReq = token ? req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    }) : req;
+  //   // Clone the request to add the Authorization header with the token
+  //   const authReq = token ? req.clone({
+  //     setHeaders: {
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //   }) : req;
 
-    return next.handle(authReq);
-  }
+  //   return next.handle(authReq);
+  // }
 }
