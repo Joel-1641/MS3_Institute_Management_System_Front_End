@@ -1,0 +1,134 @@
+<div class="d-flex justify-content-center align-items-center vh-100 bg-black" 
+     style="background-image: url(/Sliders/movie-detail-bg.png);">
+  <div class="row shadow-lg rounded-4 overflow-hidden"
+       style="width: 55rem; height: 45rem; background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(10px);">
+
+    <!-- Image Section -->
+    <div class="col-md-5 p-0">
+      <div class="h-100"
+           style="background-image: url('/Sliders/login.jpg'); 
+                  background-size: cover; 
+                  background-position: center; 
+                  filter: brightness(0.8) saturate(0.9);">
+      </div>
+    </div>
+
+    <!-- Register Form Section -->
+    <div class="col-md-7 p-5 d-flex align-items-center">
+      <div class="card p-4 border-0 bg-transparent text-white w-100">
+        <h3 class="text-center mb-4 text-danger fw-bold">Create Your Account</h3>
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+          <!-- Full Name -->
+          <div class="mb-3">
+            <label for="fullname" class="form-label text-light">Full Name</label>
+            <div class="input-group shadow-sm">
+              <span class="input-group-text bg-secondary text-white border-secondary">
+                <i class="bi bi-person"></i>
+              </span>
+              <input type="text" formControlName="fullname" id="fullname" 
+                     class="form-control bg-dark text-white border-secondary rounded-3" 
+                     placeholder="Enter your full name" />
+            </div>
+            <div class="form-text text-danger mt-1" *ngIf="signupForm.get('fullname')?.touched && signupForm.get('fullname')?.invalid">
+              Full Name is required
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label text-light">Email Address</label>
+            <div class="input-group shadow-sm">
+              <span class="input-group-text bg-secondary text-white border-secondary">
+                <i class="bi bi-envelope"></i>
+              </span>
+              <input type="email" formControlName="email" id="email" 
+                     class="form-control bg-dark text-white border-secondary rounded-3" 
+                     placeholder="Enter your email address" />
+            </div>
+            <div class="form-text text-danger mt-1" *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+              Valid email is required
+            </div>
+          </div>                       
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label text-light">Password</label>
+            <div class="input-group shadow-sm">
+              <span class="input-group-text bg-secondary text-white border-secondary">
+                <i class="bi bi-lock"></i>
+              </span>
+              <input type="password" formControlName="password" id="password" 
+                     class="form-control bg-dark text-white border-secondary rounded-3" 
+                     placeholder="Create a password" />
+            </div>
+            <div class="form-text text-danger mt-1" *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+              Password must be at least 6 characters long
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label text-light">Confirm Password</label>
+            <div class="input-group shadow-sm">
+              <span class="input-group-text bg-secondary text-white border-secondary">
+                <i class="bi bi-lock-fill"></i>
+              </span>
+              <input type="password" formControlName="confirmPassword" id="confirmPassword" 
+                     class="form-control bg-dark text-white border-secondary rounded-3" 
+                     placeholder="Confirm your password" />
+            </div>
+            <div class="form-text text-danger mt-1" *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.invalid">
+              Passwords must match
+            </div>
+          </div>
+
+          <!-- Role -->
+          <div class="mb-3">
+            <label for="role" class="form-label text-light">Select Role</label>
+            <div class="input-group shadow-sm">
+              <span class="input-group-text bg-secondary text-white border-secondary">
+                <i class="bi bi-person-badge"></i>
+              </span>
+              <select formControlName="role" id="role" 
+                      class="form-select bg-dark text-white border-secondary rounded-3">
+                <option value="" disabled>Select your role</option>
+                <option value="1">Admin</option>
+                <option value="2">Customer</option>
+              </select>
+            </div>
+            <div class="form-text text-danger mt-1" *ngIf="signupForm.get('role')?.touched && signupForm.get('role')?.invalid">
+              Role is required
+            </div>
+          </div>
+
+          <!-- Terms and Conditions -->
+          <div class="mb-4 form-check">
+            <input type="checkbox" formControlName="terms" class="form-check-input border-secondary" id="termsCheck" />
+            <label class="form-check-label text-light" for="termsCheck">
+              I agree to all statements in <a href="#" class="text-danger text-decoration-none">Terms of service</a>
+            </label>
+            <div class="form-text text-danger mt-1" *ngIf="signupForm.get('terms')?.touched && signupForm.get('terms')?.invalid">
+              You must agree to the terms
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-danger btn-lg shadow rounded-pill" [disabled]="signupForm.invalid">
+              Register
+            </button>
+          </div>
+
+          <!-- Login Redirect -->
+          <div class="text-center mt-4">
+            <p class="text-white">
+              Already have an account? <a href="/login" class="text-danger text-decoration-none fw-bold">Login</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
