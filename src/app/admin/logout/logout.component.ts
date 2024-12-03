@@ -16,7 +16,7 @@ export class LogoutComponent {
 
   logout(): void {
     // Remove the token from localStorage
-    this.authService.removeToken();
+    //this.authService.removeToken();
 
     // Redirect the user to the login page
     this.router.navigate(['/login']);
