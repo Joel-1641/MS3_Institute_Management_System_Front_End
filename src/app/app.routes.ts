@@ -1,16 +1,30 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './admin/dashboard.component';
+import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { AddcourseComponent } from './admin/addcourse/addcourse.component';
+import { AnalyticsComponent } from './admin/analytics/analytics.component';
+import { CoursesComponent } from './admin/courses/courses.component';
+import { holdReady } from 'jquery';
+import { SitebarComponent } from './admin/sitebar/sitebar.component';
+
 
 export const routes: Routes = [
-   
-        // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-        // { path: 'dashboard', loadComponent: () => import('../app/admin/dashboard/dashboard.component').then(m => m.DashboardComponent) },
-        // { path: 'analytics', loadComponent: () => import('../app/admin/analytics/analytics.component').then(m => m.AnalyticsComponent) },
-        // { path: 'students', loadComponent: () => import('../app/admin/students/students.component').then(m => m.StudentsComponent) },
-        // { path: 'courses', loadComponent: () => import('../app/admin/courses/courses.component').then(m => m.CoursesComponent) },
-        // { path: 'logout', loadComponent: () => import('../app/admin/logout/logout.component').then(m => m.LogoutComponent) },
-        // { path: '**', redirectTo: 'dashboard' }
-           { path: 'admin',component:DashboardComponent}
+    { path: '**', component: HomeComponent },
+    { path: '', component: HomeComponent },
+    // {path:'register' , component:SignupPageComponent},
+    // {path:'login' , component:LoginPageComponent},
 
-      ];
-      
+
+    {path: 'admin', component: SitebarComponent,
+    //     canActivate:[AuthGuard],
+    children: [
+        { path: 'add-course', component: AddcourseComponent },
+        { path: 'analytics', component: AnalyticsComponent },
+        { path: 'courses', component: CoursesComponent },
+
+
+    ]
+        }
+
+];
+

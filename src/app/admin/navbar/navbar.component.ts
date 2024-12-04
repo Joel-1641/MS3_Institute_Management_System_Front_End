@@ -15,14 +15,15 @@ export class NavbarComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.fetchMessages();
+    // this.fetchMessages();
   }
 
-  fetchMessages(): void {
-    // Replace 'http://your-api-endpoint/messages' with your actual API endpoint
-    this.http.get<any[]>('http://your-api-endpoint/messages')
-      .subscribe(data => {
-        this.messages = data;
-      });
-  }
+  // fetchMessages(): void {
+  //   // Replace 'http://your-api-endpoint/messages' with your actual API endpoint
+  //   this.http.get<any[]>('http://your-api-endpoint/messages')
+  //     .subscribe(data => {
+  //       this.messages = data;
+  // });
+
+  // }
 }

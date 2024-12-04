@@ -1,0 +1,13 @@
+.icon {
+  font-size: 200px;
+  color: var(--brown);
+}
+
+.bg-redd {
+  background-color: #ee394b !important;
+}
+.hover-redd:hover {
+  background-color: #94242e !important;
+}
+
+
