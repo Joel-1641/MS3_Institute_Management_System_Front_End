@@ -1,46 +1,30 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './admin/navbar/navbar.component';
-import { DashboardComponent } from '../app/admin/dashboard/dashboard.component';
-import { StudentsComponent } from '../app/admin/students/students.component';
-import { CoursesComponent } from '../app/admin/courses/courses.component';
-import { LoginComponent } from './login/login.component';
-import { SignupPageComponent } from './login/signup-page/signup-page.component';
-import { AuthGuard } from './auth/auth-guard.guard';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { AddcourseComponent } from './admin/addcourse/addcourse.component';
+import { AnalyticsComponent } from './admin/analytics/analytics.component';
+import { CoursesComponent } from './admin/courses/courses.component';
+import { holdReady } from 'jquery';
+import { SitebarComponent } from './admin/sitebar/sitebar.component';
+
 
 export const routes: Routes = [
+    { path: '**', component: HomeComponent },
+    { path: '', component: HomeComponent },
+    // {path:'register' , component:SignupPageComponent},
+    // {path:'login' , component:LoginPageComponent},
 
-  // { path: '', component: HomeComponent },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent},
-  // {
-  //   path: 'admin',
-  //   component: NavbarComponent,
-  //   children: [
-  //     { path: 'dashboard', component: DashboardComponent },
-  //     { path: 'analytics', component: AnalyserNode },
-  //     { path: 'students', component: StudentsComponent },
-  //     { path: 'courses', component: CoursesComponent },
-  //     { path: 'logout', component: HomeComponent }
-  //   ]
-  // },
-  // { path: '**', redirectTo: '' } 
 
-  { path: '', component: HomeComponent },
-  { path: 'register', component: SignupPageComponent },
-  { path: 'login', component: LoginComponent },
-
-  {
-    path: 'admin', component: NavbarComponent,
-    canActivate: [AuthGuard],
+    {path: 'admin', component: SitebarComponent,
+    //     canActivate:[AuthGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'analytics', component: AnalyserNode },
-      { path: 'students', component: StudentsComponent },
-      { path: 'courses', component: CoursesComponent },
-      { path: 'logout', component: HomeComponent }
+        { path: 'add-course', component: AddcourseComponent },
+        { path: 'analytics', component: AnalyticsComponent },
+        { path: 'courses', component: CoursesComponent },
+
+
     ]
-  }
+        }
+
 ];
 
