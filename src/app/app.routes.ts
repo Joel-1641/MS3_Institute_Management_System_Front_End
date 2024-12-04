@@ -4,27 +4,26 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AddcourseComponent } from './admin/addcourse/addcourse.component';
 import { AnalyticsComponent } from './admin/analytics/analytics.component';
 import { CoursesComponent } from './admin/courses/courses.component';
-import { holdReady } from 'jquery';
 import { SitebarComponent } from './admin/sitebar/sitebar.component';
+import { StudentsComponent } from './admin/students/students.component';
+import { AdmindashboardComponent } from './admin/admindashboard.component';
 
 
 export const routes: Routes = [
-    { path: '**', component: HomeComponent },
-    { path: '', component: HomeComponent },
-    // {path:'register' , component:SignupPageComponent},
-    // {path:'login' , component:LoginPageComponent},
-
-
-    {path: 'admin', component: SitebarComponent,
-    //     canActivate:[AuthGuard],
-    children: [
-        { path: 'add-course', component: AddcourseComponent },
-        { path: 'analytics', component: AnalyticsComponent },
-        { path: 'courses', component: CoursesComponent },
-
-
-    ]
-        }
+    { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default route
+    { path: 'home', component: HomeComponent },
+    {
+        path: 'admin',
+        component: AdmindashboardComponent,
+        children: [
+            { path: 'dashboard', component: DashboardComponent },
+            { path: 'analytics', component: AnalyticsComponent },
+            { path: 'students', component: StudentsComponent },
+            { path: 'courses', component: CoursesComponent },
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // Default child route
+        ],
+    },
+    { path: '**', redirectTo: '/home' }, // Wildcard route
 
 ];
 
