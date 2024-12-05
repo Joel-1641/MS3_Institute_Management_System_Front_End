@@ -6,12 +6,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LogoutComponent } from './logout/logout.component';
 import { StudentsComponent } from './students/students.component';
 import { SitebarComponent } from "./sitebar/sitebar.component";
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-admindashboard',
   standalone: true,
-  imports: [AnalyticsComponent, CoursesComponent, AddcourseComponent, DashboardComponent, LogoutComponent, StudentsComponent, SitebarComponent],
+  imports: [RouterOutlet, AnalyticsComponent, CoursesComponent, AddcourseComponent, DashboardComponent, LogoutComponent, StudentsComponent, SitebarComponent],
   templateUrl: './admindashboard.component.html',
   styleUrl: './admindashboard.component.css'
 })

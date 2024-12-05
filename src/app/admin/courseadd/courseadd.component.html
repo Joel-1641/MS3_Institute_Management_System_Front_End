@@ -1,0 +1,62 @@
+<form [formGroup]="CourseForm" (ngSubmit)="courseId ? updateCourse() : addCourse()">
+    <div class="mb-4">
+      <label for="courseName" class="form-label fw-semibold">Course Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="courseName"
+        formControlName="courseName"
+        placeholder="Enter Course Name"
+      />
+      <div *ngIf="courseName?.touched && courseName?.invalid" class="text-danger small">
+        <div *ngIf="courseName?.errors?.['required']">Course Name is required.</div>
+      </div>
+    </div>
+  
+    <div class="mb-4">
+      <label for="level" class="form-label fw-semibold">Proficiency Level</label>
+      <select class="form-control" id="level" formControlName="level">
+        <option value="" disabled>Select Level</option>
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+      </select>
+      <div *ngIf="level?.touched && level?.invalid" class="text-danger small">
+        <div *ngIf="level?.errors?.['required']">Proficiency Level is required.</div>
+      </div>
+    </div>
+  
+    <div class="mb-4">
+      <label for="courseFee" class="form-label fw-semibold">Course Fee</label>
+      <input
+        type="text"
+        class="form-control"
+        id="courseFee"
+        formControlName="courseFee"
+        placeholder="Enter Course Fee"
+      />
+      <div *ngIf="courseFee?.touched && courseFee?.invalid" class="text-danger small">
+        <div *ngIf="courseFee?.errors?.['required']">Course Fee is required.</div>
+        <div *ngIf="courseFee?.errors?.['pattern']">Course Fee must be a valid number.</div>
+      </div>
+    </div>
+  
+    <div class="mb-4">
+      <label for="description" class="form-label fw-semibold">Description</label>
+      <textarea
+        class="form-control"
+        id="description"
+        formControlName="description"
+        rows="3"
+        placeholder="Enter Course Description"
+      ></textarea>
+      <div *ngIf="description?.touched && description?.invalid" class="text-danger small">
+        <div *ngIf="description?.errors?.['required']">Description is required.</div>
+        <div *ngIf="description?.errors?.['maxlength']">Description must be under 500 characters.</div>
+      </div>
+    </div>
+  
+    <button type="submit" class="btn btn-primary">
+      {{ courseId ? 'Update Course' : 'Add Course' }}
+    </button>
+  </form>
+  
