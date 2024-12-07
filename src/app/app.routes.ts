@@ -1,17 +1,22 @@
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+
+import { CoursesComponent } from './admin/courses/courses.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AnalyticsComponent } from './admin/analytics/analytics.component';
-import { SitebarComponent } from './admin/sitebar/sitebar.component';
 import { StudentsComponent } from './admin/students/students.component';
-import { AdmindashboardComponent } from './admin/admindashboard.component';
-import { ListcoursesComponent } from './admin/listcourses/listcourses.component';
-import { CourseaddComponent } from './admin/courseadd/courseadd.component';
-import { CoursesComponent } from './home/courses/courses.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'listcourse', pathMatch: 'full' }, // Default route
-  { path: 'listcourse', component: ListcoursesComponent },
+  
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'analytics', component: AnalyticsComponent},
+  { path: 'students', component: StudentsComponent},
+  { path: 'courses', component: CoursesComponent}
+
+
+
+  // { path: '', redirectTo: 'listcourse', pathMatch: 'full' }, // Default route
   // {
   //     path: 'admin',
   //     component: SitebarComponent,
