@@ -1,18 +1,39 @@
 import { Injectable } from '@angular/core';
-import{Courses} from '../models/model'
+import{Students, Courses} from '../models/model'
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CourseService {
-
+export class AdminService {
   adminurl:string = 'http://localhost:5256/api/Admin/';
 
   constructor(private http: HttpClient) { }
 
+  getAllStudents() {
+    return this.http.get<Students[]>(this.adminurl);
+  }
+
+  addStudent(students: Students) {
+    return this.http.post(this.adminurl, students);
+  }
+
+  deleteStudents(studentsId: number) {
+    return this.http.delete(this.adminurl + "/" + studentsId);
+  }
+
+  getStudents(studentsId: number) {
+    return this.http.get<Students>(this.adminurl + "/" + studentsId);
+  }
+
+  // updateStudents(students: Students) {
+  //   return this.http.put(this.adminurl + "/" + students.Id, students);
+  // }
+
+
+ 
   getCourse(){
-    return this.http.get<Courses[]>(this.adminurl);
+    return this.http.get<Courses[]>(this.);
   }
 
   getCourseById(id:number){
