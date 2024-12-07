@@ -1,0 +1,25 @@
+<div class="row g-6 m-5">
+  <div class="col-xl-3 col-sm-6 col-12" *ngFor="let card of analyticsCards">
+    <div class="card shadow border-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <span class="h6 font-semibold text-muted text-sm d-block mb-2">{{ card.title }}</span>
+            <span class="h3 font-bold mb-0">{{ card.value }}</span>
+          </div>
+          <div class="col-auto">
+            <div [class]="'icon icon-shape ' + card.iconClass">
+              <i [class]="card.icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2 mb-0 text-sm">
+          <span [class]="'badge badge-pill ' + card.trendClass">
+            <i [class]="card.trendIcon"></i>{{ card.trendValue }}
+          </span>
+          <span class="text-nowrap text-xs text-muted">{{ card.trendText }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
