@@ -1,35 +1,54 @@
-<div class="container mt-5">
-    <h1>Students</h1>
-    <div class="card shadow border-0 mb-7">
-      <div class="card-header">
-        <h5 class="mb-0">Student Details</h5>
-      </div>
-      <div class="table-responsive">
-        <table class="table table-hover table-nowrap">
-          <thead class="thead-light">
-            <tr>
-              <th>Student Name</th>
-              <th>Applying Date</th>
-              <th>Course</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let student of studentsData; let i = index">
-              <td>
-                <img [src]="student.avatar" alt="Avatar" class="avatar avatar-sm rounded-circle me-2">
-                {{ student.name }}
-              </td>
-              <td>{{ student.date }}</td>
-              <td>{{ student.courseName }}</td>
-              <td>
-                <button class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-sm btn-danger" (click)="deleteStudent(i)"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div class="card shadow border-0 ps-2 m-5">
+  <div class="card-header">
+    <h5 class="mb-0">Student List</h5>
   </div>
-  
+  <div class="table-responsive">
+    <table class="table table-hover table-nowrap">
+      <thead class="thead-light">
+        <tr style="text-align: center">
+          <th scope="col">Student Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">NIC Number</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Mobile Number</th>
+          <th scope="col">Address</th>
+          <th scope="col">Date of Birth</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody style="text-align: center">
+        <tr *ngFor="let student of students">
+          <td>
+            <img
+              *ngIf="student.profilePicture"
+              [src]="student.profilePicture"
+              alt="Avatar"
+              class="avatar avatar-sm rounded-circle me-2"
+            />
+            <span *ngIf="!student.profilePicture" class="avatar-placeholder">
+              {{ student.fullName[0] }}
+            </span>
+            {{ student.fullName }}
+          </td>
+          <td>{{ student.email }}</td>
+          <td>{{ student.nicNumber }}</td>
+          <td>{{ student.gender }}</td>
+          <td>{{ student.mobileNumber }}</td>
+          <td>{{ student.address }}</td>
+          <!-- //<td>{{ student.}}</td> -->
+          <!-- <td>${{ student.registrationFee }}</td>
+          <td>{{ student.isRegistrationFeePaid ? 'Yes' : 'No' }}</td> -->
+          <td>{{ student.dateOfBirth | date}}</td>
+          <td>
+            <button class="btn btn-sm btn-square btn-neutral">
+              <i class="bi bi-pencil-square text-primary" title="Edit"></i>
+            </button>
+            <button class="btn btn-sm btn-square btn-neutral ms-3">
+              <i class="bi bi-trash text-danger" title="Delete"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

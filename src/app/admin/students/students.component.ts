@@ -1,31 +1,52 @@
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { StudentService, Student } from '../../services/student.service';
+
 
 @Component({
   selector: 'app-students',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './students.component.html',
-  styleUrl: './students.component.css'
+  styleUrls: ['./students.component.css'],
+  imports: [CommonModule],
 })
-export class StudentsComponent {
-  studentsData = [
-    {
-      name: 'John Doe',
-      date: 'March 5, 2022',
-      courseName: 'Full Stack Development',
-      avatar: 'https://images.unsplash.com/photo-1603415526960-f0b1a1d6c2db?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80'
-    },
-    {
-      name: 'Jane Smith',
-      date: 'April 10, 2022',
-      courseName: 'Data Science',
-      avatar: 'https://images.unsplash.com/photo-1610444463205-5275426db49e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80'
-    },
-    // Add more student entries
-  ];
+export class StudentsComponent implements OnInit{
+  private studentService = inject(StudentService);
+  students: Student[] = [];
+  isLoading = true;
+  errorMessage = '';
+  constructor() {}
 
-  deleteStudent(index: number): void {
-    this.studentsData.splice(index, 1);
+  ngOnInit(): void {
+    this.fetchStudents();
   }
+
+  fetchStudents(){
+    this.studentService.getStudents().subscribe({
+      next: (data) => {
+        this.students = data;
+        console.log(this.students)
+       this.isLoading = false; 
+      },
+      error: (error) => {
+        this.errorMessage = 'Failed to load students. Please try again later.';
+        this.isLoading = false;
+      }
+    });
+  }
+  
+  // students = [
+  //   {
+  //     studentId: 1,
+  //     userId: 0,
+  //     fullName: "Joel",
+  //     email: "jo@gmail.com",
+  //     profilePicture: null,
+  //     nicNumber: "983091113V",
+  //     gender: "Male",
+  //     address: "string",
+  //     mobileNumber: 772389081,
+  //     dateOfBirth: "2004-12-07T05:46:03.545",
+  //   }
+  // ];
 }

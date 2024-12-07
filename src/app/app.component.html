@@ -1,16 +1,13 @@
-<!-- <app-home></app-home> -->
-<!-- <app-navbar></app-navbar> -->
+<!-- <app-listcourses></app-listcourses> -->
+ <!-- <router-outlet></router-outlet> -->
 <!-- <app-dashboard></app-dashboard> -->
-<!-- <app-login></app-login> -->
+ <!-- <app-header></app-header> -->
+  <!-- <app-listcourses></app-listcourses> -->
 
-<!-- <app-navbar></app-navbar>   -->
-<!-- <div class="container mt-5"> -->
-  <!-- The router-outlet will display the component based on the current route -->
-  <!-- <router-outlet></router-outlet> -->
-<!-- </div> -->
-
-
-<!-- <app-admindashboard></app-admindashboard> -->
-
-
-    <router-outlet></router-outlet>
+  <div class="d-flex" >
+    <app-sidebar></app-sidebar>
+    <div class="flex-grow-1 p-5" style="background-color: #01011b1e;">
+      <router-outlet></router-outlet>
+    </div>
+  </div> 
+ 
