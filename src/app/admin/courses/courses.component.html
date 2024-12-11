@@ -1,51 +1,91 @@
-<div class="card-header d-flex justify-content-between align-items-center">
-  <h5 class="mb-0">Courses</h5>
-  <!-- <button
-    type="button"
-    class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#addCourseModal"
-  >
-    <i class="bi bi-plus"></i> Add New Course
-  </button> -->
-    <button class="btn btn-primary" [routerLink]="['/courses/add']">
-    Add Course
-  </button>
-</div>
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+  <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <!-- Title -->
+      <h5 class="text-white mb-0">Courses</h5>
+
+      <!-- Search Input -->
+      <div class="input-group w-50 mx-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search courses..."
+          [(ngModel)]="searchText"
+          (ngModelChange)="updatePaginatedCourses()"
+        />
+        <span class="input-group-text">
+          <i class="bi bi-search"></i>
+        </span>
+      </div>
+
+      <!-- Add Course Button -->
+      <button class="btn btn-light" [routerLink]="['/courses/add']">
+        <i class="bi bi-plus"></i> Add Course
+      </button>
+    </div>
+  </div>
+</nav>
 
 <!-- Course Cards Container -->
-<div
-  class="courses-container d-flex flex-wrap justify-content-center gap-4 p-4"
->
-  <!-- Individual Course Card -->
-  <div class="course-card card shadow-sm" *ngFor="let course of courses">
-    <!-- Card Image -->
-    <div class="card-image">
-      <img [src]="course.image" class="card-img-top" [alt]="course.name" />
-    </div>
-    <!-- Card Body -->
-    <div class="card-body text-center">
-      <h5 class="card-title">{{ course.name }}</h5>
-      <p class="card-text">
-         ${{ course.fee }} <br />
-        {{ course.description }}
-      </p>
-      <div class="d-flex justify-content-center gap-2">
-        <!-- Edit Button -->
-        <button
-          class="btn btn-warning btn-sm"
-          [routerLink]="['/courses/edit', course.id]"
-        >
-          Edit
-        </button>
-        <!-- Delete Button -->
-        <button class="btn btn-danger btn-sm" (click)="deleteCourse(course.id)">
-          Delete
-        </button>
+<div class="courses-container p-4">
+  <!-- Cards Wrapper with Fixed Area -->
+  <div
+    class="d-flex flex-wrap justify-content-center gap-4 overflow-auto"
+    style="height: 600px; border: 1px solid #ddd; border-radius: 5px"
+  >
+    <!-- Individual Course Card -->
+    <div class="course-card card shadow-sm col-12 col-md-2" *ngFor="let course of courses | searchCourse: searchText">
+      <!-- Card Image -->
+      <div class="card-image">
+        <img [src]="course.image" class="card-img-top" [alt]="course.name" />
+      </div>
+      <!-- Card Body -->
+      <div class="card-body text-center ">
+        <h5 class="card-title">{{ course.name }}</h5>
+        <p class="card-text">
+          ${{ course.fee }} <br />
+          {{ course.description }}
+        </p>
+        <div class="d-flex justify-content-center gap-2">
+          <!-- Edit Button -->
+          <button
+            class="btn btn-warning btn-sm"
+            [routerLink]="['/courses/edit', course.id]"
+          >
+            Edit
+          </button>
+          <!-- Delete Button -->
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="deleteCourse(course.id)"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+
+<!-- Pagination Controls -->
+<div class="pagination-controls text-center mt-3">
+    <button
+      class="btn btn-secondary btn-sm"
+      [disabled]="currentPage === 1"
+      (click)="previousPage()"
+    >
+      Previous
+    </button>
+    <span class="mx-2">Page {{ currentPage }} of {{ totalPages }}</span>
+    <button
+      class="btn btn-secondary btn-sm"
+      [disabled]="currentPage === totalPages"
+      (click)="nextPage()"
+    >
+      Next
+    </button>
+  </div>
 
 <!-- Modal -->
 <!-- <app-course-edit></app-course-edit> -->

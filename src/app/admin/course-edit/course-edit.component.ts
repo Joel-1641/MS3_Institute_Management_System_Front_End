@@ -1,15 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../../services/course.service';
-import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 import axios from 'axios';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-course-edit',
@@ -187,6 +182,7 @@ export class CourseEditComponent implements OnInit {
           this.router.navigate(['/courses']);
         },
         error: (err) => console.error('Error adding course:', err),
+      
       });
     }
   }

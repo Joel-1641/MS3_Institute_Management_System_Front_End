@@ -15,6 +15,10 @@ export class StudentService {
     return this.http.get<Student[]>(this.apiUrl);
   }
 
+   // Fetch a course by ID
+   getStudentById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
   // Add a new student
   addStudent(studentData: any): Observable<any> {
     return this.http.post(this.apiUrl, studentData);  // Send POST request with student data
