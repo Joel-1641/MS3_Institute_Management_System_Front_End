@@ -1,0 +1,83 @@
+
+<div #addCourseModal class="modal fade" id="addCourseModal" tabindex="-1" aria-labelledby="addCourseModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ isEditMode ? 'Edit Course' : 'Add New Course' }}</h5>
+        <button type="button" class="btn-close" (click)="modalInstance?.hide()"></button>
+      </div>
+
+      <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <!-- Course Name -->
+          <div class="mb-3">
+            <label for="courseName" class="form-label">Course Name</label>
+            <input type="text" id="courseName" class="form-control" formControlName="courseName" />
+            <div *ngIf="courseForm.get('courseName')?.invalid && courseForm.get('courseName')?.touched" class="text-danger">
+              Course Name is required.
+            </div>
+          </div>
+
+          <!-- Level -->
+          <div class="mb-3">
+            <label for="level" class="form-label">Level</label>
+            <select id="level" class="form-select" formControlName="level">
+              <option value="">Select Level</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+            </select>
+            <div *ngIf="courseForm.get('level')?.invalid && courseForm.get('level')?.touched" class="text-danger">
+              Level is required.
+            </div>
+          </div>
+
+          <!-- Fee -->
+          <div class="mb-3">
+            <label for="courseFee" class="form-label">Fee</label>
+            <input type="number" id="courseFee" class="form-control" formControlName="courseFee" />
+            <div *ngIf="courseForm.get('courseFee')?.invalid && courseForm.get('courseFee')?.touched" class="text-danger">
+              Fee is required.
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" rows="3" class="form-control" formControlName="description"></textarea>
+            <div *ngIf="courseForm.get('description')?.invalid && courseForm.get('description')?.touched" class="text-danger">
+              Description is required.
+            </div>
+          </div>
+
+          <!-- Image Upload (Optional) -->
+          <div class="mb-3">
+            <label for="courseImg" class="form-label">Course Image (Optional)</label>
+            <input 
+            type="file" 
+            id="courseImg" 
+            class="form-control" 
+            (change)="onFileSelect($event)" 
+            accept="image/jpeg, image/png"
+            [ngClass]="{'is-invalid': fileInputError}"
+            required 
+          />
+            <div *ngIf="fileInputError" class="invalid-feedback">
+              {{ fileInputError }}
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="modalInstance?.hide()">Close</button>
+          <button type="submit" class="btn btn-primary" [disabled]="courseForm.invalid">
+            {{ isEditMode ? 'Update' : 'Add' }}
+          </button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="!courseForm">
+      <p>Loading...</p>
+    </div>
+  </div>
+</div>

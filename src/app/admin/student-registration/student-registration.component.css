@@ -1,0 +1,13 @@
+.text-danger {
+    font-size: 0.9rem;
+  }
+  .modal-title {
+    font-weight: bold;
+  }
+  /* Disable button style */
+button[disabled] {
+    background-color: #d6d6d6;
+    border-color: #ccc;
+    cursor: not-allowed;
+  }
+  

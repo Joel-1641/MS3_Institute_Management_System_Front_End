@@ -14,10 +14,11 @@ import { Router, RouterLink } from '@angular/router';
 export class SidebarComponent {
   constructor(private router:Router) { }
   
-showstudents() {
-this.router.navigate(['/students'])
-}
-  totalMessages =[]
+// showstudents() {
+// this.router.navigate(['/students'])
+// }
+
+  totalMessages =[5]
 
   recentMessages=[
     {
@@ -29,10 +30,10 @@ this.router.navigate(['/students'])
       "status": "unread"
     },
     {
-      "id": 2,
-      "senderName": "Michael Jordan",
-      "content": "Looking forward to our meeting tomorrow!",
-      "timestamp": "2024-12-06T10:22:30Z",
+      "id": 3,
+      "senderName": "Heather Wright",
+      "content": "Your registration is confirmed!",
+      "timestamp": "2024-12-05T08:10:15Z",
       "senderAvatar": "https://images.unsplash.com/photo-1610899922902-c471ae684eff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80",
       "status": "read"
     },
@@ -42,11 +43,19 @@ this.router.navigate(['/students'])
       "content": "Your registration is confirmed!",
       "timestamp": "2024-12-05T08:10:15Z",
       "senderAvatar": "https://images.unsplash.com/photo-1610899922902-c471ae684eff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80",
-      "status": "unread"
+      "status": "read"
     },
     {
       "id": 3,
       "senderName": "Heather Wright",
+      "content": "Your registration is confirmed!",
+      "timestamp": "2024-12-05T08:10:15Z",
+      "senderAvatar": "https://images.unsplash.com/photo-1610899922902-c471ae684eff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80",
+      "status": "read"
+    },
+    {
+      "id": 3,
+      "senderName": "Joel",
       "content": "Your registration is confirmed!",
       "timestamp": "2024-12-05T08:10:15Z",
       "senderAvatar": "https://images.unsplash.com/photo-1610899922902-c471ae684eff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80",
