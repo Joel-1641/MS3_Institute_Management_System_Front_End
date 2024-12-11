@@ -1,14 +1,13 @@
 <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white dark:bg-gray-800 border-bottom border-bottom-lg-0 border-end-lg">
   <div class="container-fluid">
     <!-- Toggler for smaller screens -->
-    <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Brand Section -->
-    <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" routerLink="/">
-      <img src="/Logo.PNG" alt="IT Scholar Logo">
-      <h1>IT Scholar</h1>
+    <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" routerLink="/dashboard">
+      <img src="/Logo.PNG" style="width: 100%; ; height: auto;" alt="IT Scholar Logo">
     </a>
 
     <!-- Sidebar Menu -->
@@ -26,7 +25,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a (click)="showstudents()" routerLinkActive="active" class="nav-link">
+          <a routerLink="/students" routerLinkActive="active" class="nav-link">
             <i class="bi bi-people"></i> Students
           </a>
         </li>
@@ -35,28 +34,30 @@
             <i class="bi bi-book"></i> Courses
           </a>
         </li>
+        <li class="nav-item">
+          <a routerLink="/payment" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-coin"></i> Payment
+          </a>
       </ul>
 
       <!-- Divider -->
-      <hr class="navbar-divider my-5 opacity-20">
+      <hr class="navbar-divider my-1 opacity-20">
 
-      <!-- Divider -->
-<hr class="navbar-divider my-5 opacity-20">
 
 <!-- Navigation -->
-<ul class="navbar-nav mb-md-4">
+<!-- <ul class="navbar-nav mb-md-4"> -->
   <!-- Total Messages Batch -->
-  <li>
+  <!-- <li>
     <div class="nav-link text-xs font-semibold text-uppercase text-muted ls-wide" href="#">
       <i class="bi bi-chat"></i> Messages
       <span class="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-4">
         {{ totalMessages }}
       </span>
     </div>
-  </li>
+  </li> -->
 
-  <!-- Display the last 3 messages -->
-  <ng-container *ngFor="let message of recentMessages">
+  <!-- Display the last 2 messages -->
+  <!-- <ng-container *ngFor="let message of recentMessages | slice:0:2">
     <li>
       <a href="#" class="nav-link d-flex align-items-center">
         <div class="me-4">
@@ -69,16 +70,13 @@
           <span class="d-block text-sm font-semibold">{{ message.senderName }}</span>
           <span class="d-block text-xs text-muted font-regular">{{ message.content }}</span>
         </div>
-        <div class="ms-auto">
-          <i class="bi bi-chat"></i>
-        </div>
       </a>
     </li>
   </ng-container>
-</ul>
+</ul> -->
 
 <!-- Push content down -->
-<div class="mt-auto"></div>
+<!-- <div class="mt-auto"></div> -->
 
 
       <!-- Additional Links -->

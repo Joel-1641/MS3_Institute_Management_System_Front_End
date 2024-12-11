@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CourseService , Course} from '../../services/course.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css'
 })
@@ -34,6 +35,22 @@ export class CoursesComponent implements OnInit{
       }
     });
   }
+
+  // Delete a course
+  deleteCourse(id: number): void {
+    if (confirm('Are you sure you want to delete this course?')) {
+      this.courseService.deleteCourse(id).subscribe({
+        next: () => {
+          alert('Course deleted successfully!');
+          this.fetchCourses(); // Refresh the list
+        },
+        error: (err) => {
+          console.error('Error deleting course:', err);
+        },
+      });
+    }
+  }
+
 
 }
 

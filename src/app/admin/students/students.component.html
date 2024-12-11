@@ -1,7 +1,119 @@
 <div class="card shadow border-0 ps-2 m-5">
-  <div class="card-header">
+  <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0">Student List</h5>
+  
+      <!-- Button to trigger modal -->
+  <button
+  type="button"
+  class="btn d-inline-flex btn-sm btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#studentModal"
+>
+  <span class="pe-2">
+    <i class="bi bi-plus"></i>
+  </span>
+  <span>Add New Student</span>
+</button>
+</div>
+  <!-- Include the Add Student Modal -->
+  <app-student-registration></app-student-registration>
+  
+  
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="addStudentModal"
+    tabindex="-1"
+    aria-labelledby="addStudentModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addStudentModalLabel">Register Student</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <form id="studentForm">
+          <div class="modal-body">
+            <!-- Name Input -->
+            <div class="mb-3">
+              <label for="studentName" class="form-label">Full Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="studentName"
+                required
+                minlength="3"
+                placeholder="Enter full name"
+              />
+              <div class="invalid-feedback">
+                Please provide a valid name (at least 3 characters).
+              </div>
+            </div>
+  
+            <!-- Email Input -->
+            <div class="mb-3">
+              <label for="studentEmail" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="studentEmail"
+                required
+                placeholder="Enter email"
+              />
+              <div class="invalid-feedback">Please provide a valid email.</div>
+            </div>
+  
+            <!-- NIC Number Input -->
+            <div class="mb-3">
+              <label for="studentNIC" class="form-label">NIC Number</label>
+              <input
+                type="text"
+                class="form-control"
+                id="studentNIC"
+                required
+                placeholder="Enter NIC number"
+              />
+              <div class="invalid-feedback">Please provide a valid NIC number.</div>
+            </div>
+  
+            <!-- Phone Number Input -->
+            <div class="mb-3">
+              <label for="studentPhone" class="form-label">Phone Number</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="studentPhone"
+                required
+                pattern="^[0-9]{10}$"
+                placeholder="Enter phone number"
+              />
+              <div class="invalid-feedback">
+                Please provide a valid phone number (10 digits).
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
+  
+  
   <div class="table-responsive">
     <table class="table table-hover table-nowrap">
       <thead class="thead-light">
@@ -38,7 +150,7 @@
           <!-- //<td>{{ student.}}</td> -->
           <!-- <td>${{ student.registrationFee }}</td>
           <td>{{ student.isRegistrationFeePaid ? 'Yes' : 'No' }}</td> -->
-          <td>{{ student.dateOfBirth | date}}</td>
+          <td>{{ student.dateOfBirth | date }}</td>
           <td>
             <button class="btn btn-sm btn-square btn-neutral">
               <i class="bi bi-pencil-square text-primary" title="Edit"></i>
