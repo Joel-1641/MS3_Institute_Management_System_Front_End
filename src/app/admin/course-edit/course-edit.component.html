@@ -1,10 +1,10 @@
 
-<div #addCourseModal class="modal fade" id="addCourseModal" tabindex="-1" aria-labelledby="addCourseModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+<div #addCourseModal class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+  <div class="modal-dialog modal-lg " (click)="onModalClick($event)">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">{{ isEditMode ? 'Edit Course' : 'Add New Course' }}</h5>
-        <button type="button" class="btn-close" (click)="modalInstance?.hide()"></button>
+        <h5 class="modal-title" id="staticBackdropLabel">{{ isEditMode ? 'Edit Course' : 'Add New Course' }}</h5>
+        <button type="button" class="btn-close" (click)="onClose()"></button>
       </div>
 
       <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
@@ -69,7 +69,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="modalInstance?.hide()">Close</button>
+          <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
           <button type="submit" class="btn btn-primary" [disabled]="courseForm.invalid">
             {{ isEditMode ? 'Update' : 'Add' }}
           </button>

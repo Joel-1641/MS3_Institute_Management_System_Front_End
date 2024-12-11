@@ -8,7 +8,6 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../../services/course.service';
 import { CommonModule } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
 import * as bootstrap from 'bootstrap';
 import axios from 'axios';
 
@@ -26,14 +25,14 @@ export class CourseEditComponent implements OnInit {
   isEditMode = false;
   courseId: number | null = null;
   modalInstance: bootstrap.Modal | null = null;
-  fileInputError: string = ''; 
+  fileInputError: string = '';
+  modalVisible: boolean = false; // Control modal visibility
 
   constructor(
     private fb: FormBuilder,
     private courseService: CourseService,
     private route: ActivatedRoute,
-    private router: Router,
-    private toaster:ToastrService
+    private router: Router
   ) {
     this.courseForm = this.fb.group({
       courseName: ['', Validators.required],
@@ -92,6 +91,45 @@ export class CourseEditComponent implements OnInit {
     }
   }
 
+  onClose() {
+    this.modalVisible = false;
+    this.modalInstance?.hide();
+    this.router.navigate(['/courses']);
+  }
+  onBackdropClick(event: MouseEvent) {
+    event.stopPropagation(); 
+    }
+  
+
+   // Prevent modal from closing when clicked inside
+   onModalClick(event: MouseEvent) {
+    event.stopPropagation(); // Stop event propagation to backdrop
+  }
+
+  // Open modal method (you can use it to toggle visibility)
+  openModal() {
+    const modalElement = document.getElementById('staticBackdrop');
+    const modal = new bootstrap.Modal(modalElement!); // Create a modal instance
+    modal.show(); // Show the modal
+  }
+
+  // closeModal() {
+  //   const modalElement = document.getElementById('staticBackdrop');
+  //   const modal = bootstrap.Modal.getInstance(modalElement!); // Get existing modal instance
+  //   modal.hide(); // Hide the modal
+  // }
+  
+  private closeModal(shouldNavigate: boolean = true): void {
+    if (this.modalInstance) {
+      this.modalInstance.hide();
+      this.modalInstance = null;
+    }
+    if (shouldNavigate) {
+      this.router.navigate(['/courses']);
+    }
+  }
+ 
+
   onSubmit(): void {
     const courseData = this.courseForm.value;
 
@@ -114,10 +152,10 @@ export class CourseEditComponent implements OnInit {
 
           // Add the image URL to courseData
           courseData.courseImg = imageUrl;
-          console.log(imageUrl);
+          //console.log(imageUrl);
           // Proceed to save the course data
           this.saveCourse(courseData);
-          console.log(courseData)
+          //console.log(courseData)
         })
         .catch((error) => {
           console.error('Error uploading image:', error);
@@ -126,6 +164,7 @@ export class CourseEditComponent implements OnInit {
     } else {
       // If no image is selected, proceed with existing data
       this.saveCourse(courseData);
+      this.router.navigate(['/courses']);
     }
   }
 
@@ -152,7 +191,6 @@ export class CourseEditComponent implements OnInit {
     }
   }
 
-  
   // Handle file selection
   onFileChange(event: any): void {
     const file = event.target.files[0];
@@ -163,24 +201,22 @@ export class CourseEditComponent implements OnInit {
 
       if (!allowedTypes.includes(file.type)) {
         this.fileInputError = 'Only .jpg and .png image files are allowed.';
-        this.selectedFile = null;  // Clear the selected file
+        this.selectedFile = null; // Clear the selected file
         return;
       }
 
       // Validate file size (limit to 5MB)
       if (file.size > maxSize) {
         this.fileInputError = 'File size should not exceed 5MB.';
-        this.selectedFile = null;  // Clear the selected file
+        this.selectedFile = null; // Clear the selected file
         return;
       }
 
       // If file is valid
-      this.fileInputError = '';  // Clear any previous error
+      this.fileInputError = ''; // Clear any previous error
       this.selectedFile = file;
     }
   }
-
-  
 
   // without image Submit form
   // onSubmit(): void {
@@ -206,15 +242,7 @@ export class CourseEditComponent implements OnInit {
   //   }
   // }
 
-  private closeModal(shouldNavigate: boolean = true): void {
-    if (this.modalInstance) {
-      this.modalInstance.hide();
-      this.modalInstance = null;
-    }
-    if (shouldNavigate) {
-      this.router.navigate(['/courses']);
-    }
-  }
+ 
   // Handle file selection
   onFileSelect(event: any): void {
     const file = event.target.files[0];
