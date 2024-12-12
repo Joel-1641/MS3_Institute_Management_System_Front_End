@@ -11,3 +11,7 @@ button[disabled] {
     cursor: not-allowed;
   }
   
+  .modal-backdrop {
+    pointer-events: none;
+  }
+  
