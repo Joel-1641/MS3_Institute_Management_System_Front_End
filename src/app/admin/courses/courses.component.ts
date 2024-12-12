@@ -3,19 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { CourseService, Course } from '../../services/course.service';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { SearchCoursePipe } from '../../pipes/search-course.pipe';
-import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination';
+import { Pipes } from '../../pipes/search-filter.pipe';
+import { NgxPaginationModule} from 'ngx-pagination';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    FormsModule,
-    NgxPaginationModule,
-    SearchCoursePipe,
-  ],
+  imports: [CommonModule, RouterLink, FormsModule, NgxPaginationModule, Pipes],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css',
 })
@@ -23,18 +17,15 @@ export class CoursesComponent implements OnInit {
   searchText: string = '';
   courses: Course[] = []; // All courses data
   currentPage: number = 1; // Current page for pagination
-  itemsPerPage: number = 3; // Number of items per page
+  itemsPerPage: number = 10; // Number of items per page
   paginatedCourses: any[] = []; // Paginated courses
   totalItems: number = 0; // Total number of courses
   isLoading: boolean = true; // To show loading indicator
   errorMessage: string = ''; // For error handling
-  totalPages: number = 0; // Total number of pages
+  selectedCourseType: string = '';
+  filteredCourses: any[] = []; // Filtered courses, if needed for other operations
 
-  public paginationInstance: PaginationInstance = {
-    id: 'courses-pagination', // The id used in the pagination control
-    itemsPerPage: this.itemsPerPage,
-    currentPage: this.currentPage,
-  };
+  
 
   constructor(private courseService: CourseService) {}
 
@@ -48,8 +39,6 @@ export class CoursesComponent implements OnInit {
     this.courseService.getCourses().subscribe({
       next: (data) => {
         this.courses = data; // Store all courses
-        this.totalPages = Math.ceil(this.courses.length / this.itemsPerPage); // Calculate total pages
-        this.updatePaginatedCourses(); // Update the paginated courses based on the current page
         this.isLoading = false;
       },
       error: (error) => {
@@ -59,7 +48,25 @@ export class CoursesComponent implements OnInit {
       },
     });
   }
+  get totalPages(): number {
+    return Math.ceil(this.courses.length / this.itemsPerPage);
+  }
 
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+  // Update courses based on search or type filter (optional, just in case you want to store filtered results)
+  // updateFilteredCourses() {
+  //   this.filteredCourses = this.courses; // This line isn't strictly needed, as filtering happens in the template
+  // }
   // private loadCourses(): void {
   //   this.isLoading = true;
   //   this.errorMessage = ''; // Reset the error message
@@ -68,77 +75,6 @@ export class CoursesComponent implements OnInit {
   //     error: (error) => this.handleError(error),
   //   });
   // }
-
-  private handleSuccess(courses: any[]): void {
-    this.courses = courses;
-    this.isLoading = false;
-  }
-
-  private handleError(error: any): void {
-    this.errorMessage = 'Failed to load courses. Please try again later.';
-    console.error('Error fetching courses:', error);
-    this.isLoading = false;
-  }
-  // Pagination instance for controlling pagination state
-  //  public paginationInstance: PaginationInstance = {
-  //   id: 'courses-pagination', // This should match the id in the pagination control
-  //   itemsPerPage: this.itemsPerPage,
-  //   currentPage: this.currentPage,
-  // };
-
-  // onPageChange(page: number): void {
-  //   console.log('Page changed to:', page);
-  //   this.paginationInstance.currentPage = page;
-  //   this.currentPage = page;
-  // }
-
-  // Handle page change and update the courses for that page
-  onPageChange(page: number): void {
-    this.currentPage = page;
-
-    // Calculate the start index for the current page
-    const startIndex = (page - 1) * this.itemsPerPage;
-
-    // Slice the courses array to display the courses for the current page
-    this.paginatedCourses = this.courses.slice(
-      startIndex,
-      startIndex + this.itemsPerPage
-    );
-  }
-
-  // Update the courses shown on the current page
-  updatePaginatedCourses(): void {
-    // Update paginated courses based on current page and searchText
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = this.currentPage * this.itemsPerPage;
-
-    // Filter the courses based on the search text
-    this.paginatedCourses = this.courses
-      .filter(
-        (course) =>
-          course.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
-          course.description
-            .toLowerCase()
-            .includes(this.searchText.toLowerCase())
-      )
-      .slice(startIndex, endIndex);
-  }
-
-  // Handle previous page click
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePaginatedCourses(); // Update the paginated courses
-    }
-  }
-
-  // Handle next page click
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePaginatedCourses(); // Update the paginated courses
-    }
-  }
 
   // ngOnInit(): void {
   //   this.fetchCourses();

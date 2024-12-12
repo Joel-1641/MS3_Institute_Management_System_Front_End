@@ -31,7 +31,8 @@ export class CourseEditComponent implements OnInit {
   ) {
     this.courseForm = this.fb.group({
       courseName: ['', Validators.required],
-      level: ['', Validators.required],
+      level: ['', Validators.required], // Ensure level is required
+      courseType: ['', Validators.required],  // Ensure courseType is required
       courseFee: [0, [Validators.required, Validators.min(1)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
       courseImg: [''], // Optional field
@@ -133,7 +134,7 @@ export class CourseEditComponent implements OnInit {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
       formData.append('upload_preset', 'IT_Scholar'); // Replace with your preset
-      formData.append('folder', 'IT_Scholar'); // Replace with your folder name
+      formData.append('folder', 'Course Gallery'); // Replace with your folder name
 
       // Upload image to Cloudinary
       axios

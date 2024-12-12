@@ -11,11 +11,24 @@
           class="form-control"
           placeholder="Search courses..."
           [(ngModel)]="searchText"
-          (ngModelChange)="updatePaginatedCourses()"
         />
         <span class="input-group-text">
           <i class="bi bi-search"></i>
         </span>
+         <!-- Course Type Dropdown Filter -->
+         <!-- <div class="dropdown">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ selectedCourseType || 'Select Course Type' }}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#" (click)="selectedCourseType = ''">All</a></li>
+            <li><a class="dropdown-item" href="#" (click)="selectedCourseType = 'Web Development'">Web Development</a></li>
+            <li><a class="dropdown-item" href="#" (click)="selectedCourseType = 'Web Design'">Web Design</a></li>
+            <li><a class="dropdown-item" href="#" (click)="selectedCourseType = 'Front End'">Front End</a></li>
+            <li><a class="dropdown-item" href="#" (click)="selectedCourseType = 'Back End'">Back End</a></li>
+            <li><a class="dropdown-item" href="#" (click)="selectedCourseType = 'Others'">Others</a></li>
+          </ul>
+        </div> -->
       </div>
 
       <!-- Add Course Button -->
@@ -30,36 +43,36 @@
 <div class="courses-container p-4">
   <!-- Cards Wrapper with Fixed Area -->
   <div
-    class="d-flex flex-wrap justify-content-center gap-4 overflow-auto"
-    style="height: 600px; border: 1px solid #ddd; border-radius: 5px"
+    class="d-flex flex-wrap justify-content-center gap-4 overflow-auto pt-3"
+    style="height: 600px; border: 1px solid #f9f8fc; border-radius: 5px"
   >
     <!-- Individual Course Card -->
-    <div class="course-card card shadow-sm col-12 col-md-2" *ngFor="let course of courses | searchCourse: searchText">
+    <div
+      class="course-card card shadow-sm col-12 col-md-2"
+      *ngFor="let course of courses | searchCourse : searchText |paginate: currentPage: itemsPerPage"
+    >
       <!-- Card Image -->
       <div class="card-image">
         <img [src]="course.image" class="card-img-top" [alt]="course.name" />
+        <div class="course-price">${{ course.fee }}</div>
       </div>
       <!-- Card Body -->
-      <div class="card-body text-center ">
-        <h5 class="card-title">{{ course.name }}</h5>
+      <div class="card-body text-center">
+        <p class="card-title p-0">{{ course.name }}</p>
         <p class="card-text">
-          ${{ course.fee }} <br />
+          {{ course.category }}<br />
           {{ course.description }}
         </p>
-        <div class="d-flex justify-content-center gap-2">
-          <!-- Edit Button -->
+        <!-- Overlay Buttons Area -->
+        <div class="overlay-buttons">
           <button
-            class="btn btn-warning btn-sm"
+            class="btn btn-sm"
             [routerLink]="['/courses/edit', course.id]"
           >
-            Edit
+            <i class="bi bi-pencil-square text-primary" title="Edit"></i>
           </button>
-          <!-- Delete Button -->
-          <button
-            class="btn btn-danger btn-sm"
-            (click)="deleteCourse(course.id)"
-          >
-            Delete
+          <button (click)="deleteCourse(course.id)">
+            <i class="bi bi-trash text-danger" title="Delete"></i>
           </button>
         </div>
       </div>
@@ -67,25 +80,12 @@
   </div>
 </div>
 
-
 <!-- Pagination Controls -->
 <div class="pagination-controls text-center mt-3">
-    <button
-      class="btn btn-secondary btn-sm"
-      [disabled]="currentPage === 1"
-      (click)="previousPage()"
-    >
-      Previous
-    </button>
-    <span class="mx-2">Page {{ currentPage }} of {{ totalPages }}</span>
-    <button
-      class="btn btn-secondary btn-sm"
-      [disabled]="currentPage === totalPages"
-      (click)="nextPage()"
-    >
-      Next
-    </button>
-  </div>
+  <button  class="btn btn-secondary btn-sm me-3" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button  class="btn btn-secondary btn-sm ms-3" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+</div>
 
 <!-- Modal -->
 <!-- <app-course-edit></app-course-edit> -->

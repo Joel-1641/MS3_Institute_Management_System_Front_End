@@ -11,11 +11,13 @@ import { CommonModule } from '@angular/common';
 import * as bootstrap from 'bootstrap';
 import axios from 'axios';
 import { StudentService } from '../../services/student.service';
+import { Pipes } from '../../pipes/search-filter.pipe';
+
 
 @Component({
   selector: 'app-student-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,Pipes],
   templateUrl: './student-register.component.html',
   styleUrl: './student-register.component.css',
 })
@@ -54,11 +56,16 @@ export class StudentRegisterComponent {
       ],
       profilePicture: [''], // Optional
       registrationFee: [null, Validators.required], // Ensure non-zero numeric value
-      isRegistrationFeePaid: [false, Validators.requiredTrue], // Must be checked
+      isRegistrationFeePaid: [true, Validators.requiredTrue], // Must be checked
     });
   }
 
   ngOnInit(): void {
+    const prefilledData = { dateOfBirth: "2024-12-12T00:00:00Z" }; // Example backend data
+    const formattedDate = new Date(prefilledData.dateOfBirth).toISOString().split('T')[0];
+    this.studentForm.patchValue({ dateOfBirth: formattedDate });
+
+
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id'); // Check if editing a student
       this.route.queryParams.subscribe((queryParams) => {
@@ -149,20 +156,20 @@ export class StudentRegisterComponent {
 
       // Upload image to Cloudinary
       axios
-        .post(
-          'https://api.cloudinary.com/v1_1/itscholar/image/upload ',
-          formData
+      .post(
+        'https://api.cloudinary.com/v1_1/itscholar/image/upload ',
+        formData
         )
         .then((cloudinaryResponse) => {
           // Get the uploaded image URL
-          const imageUrl = cloudinaryResponse.data.secure_url;
+          const imgUrl = cloudinaryResponse.data.secure_url;
 
           // Add the image URL to studentData
-          studentData.profilePicture = imageUrl;
-          //console.log(imageUrl);
+          studentData.profilePicture = imgUrl;
+          console.log(imgUrl);
           // Proceed to save the student data
           this.saveStudent(studentData);
-          //console.log(studentData)
+          console.log(studentData);
         })
         .catch((error) => {
           console.error('Error uploading image:', error);
@@ -178,6 +185,7 @@ export class StudentRegisterComponent {
   // Separate method to handle saving the student
   private saveStudent(studentData: any): void {
     if (this.isEditMode) {
+
       this.studentService
         .updateStudent(this.studentId!, studentData)
         .subscribe({
@@ -231,6 +239,7 @@ export class StudentRegisterComponent {
   onFileSelect(event: any): void {
     const file = event.target.files[0];
     if (file) {
+      console.log("File selected: ", file);  // Check if file is selected
       this.selectedFile = file;
     }
   }
