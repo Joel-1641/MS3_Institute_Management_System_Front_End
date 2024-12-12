@@ -12,292 +12,318 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">
-          {{ isEditMode ? "Edit Student" : "Register Student" }}
+          {{ isEditMode ? "Update Student" : "Register Student" }}
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close" (click)="onClose()"
+        ></button>
       </div>
-      
 
-      <!-- Student Registration Modal -->
-      <div
-        class="modal fade"
-        id="studentModal"
-        tabindex="-1"
-        aria-labelledby="studentModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-              <h5 class="modal-title" id="studentModalLabel">
-                Register New Student
-              </h5>
-              <button
-                type="button"
-                class="btn-close btn-close-white"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+      <!-- Form -->
+      <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body bg-light">
+          <div class="row">
+            <!-- Full Name -->
+            <div class="col-md-6 mb-3">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input
+                type="text"
+                id="fullName"
+                class="form-control"
+                formControlName="fullName"
+                placeholder="Enter full name"
+              />
+              <div
+                *ngIf="
+                  studentForm.get('fullName')?.invalid &&
+                  studentForm.get('fullName')?.touched
+                "
+                class="text-danger mt-1"
+              >
+                Full Name is required (min 3 characters).
+              </div>
             </div>
 
-            <!-- Form -->
-            <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
-              <div class="modal-body bg-light">
-                <div class="row">
-                  <!-- Full Name -->
-                  <div class="col-md-6 mb-3">
-                    <label for="fullName" class="form-label">Full Name</label>
-                    <input
-                      type="text"
-                      id="fullName"
-                      class="form-control"
-                      formControlName="fullName"
-                      placeholder="Enter full name"
-                    />
-                    <div
-                      *ngIf="
-                        studentForm.get('fullName')?.invalid &&
-                        studentForm.get('fullName')?.touched
-                      "
-                      class="text-danger mt-1"
-                    >
-                      Full Name is required (min 3 characters).
-                    </div>
-                  </div>
+            <!-- Email -->
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                formControlName="email"
+                placeholder="Enter email"
+              />
+              <div
+                *ngIf="
+                  studentForm.get('email')?.invalid &&
+                  studentForm.get('email')?.touched
+                "
+                class="text-danger mt-1"
+              >
+                A valid email is required.
+              </div>
+            </div>
+          </div>
 
-                  <!-- Email -->
-                  <div class="col-md-6 mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      class="form-control"
-                      formControlName="email"
-                      placeholder="Enter email"
-                    />
-                    <div
-                      *ngIf="
-                        studentForm.get('email')?.invalid &&
-                        studentForm.get('email')?.touched
-                      "
-                      class="text-danger mt-1"
-                    >
-                      A valid email is required.
-                    </div>
-                  </div>
+          <div class="row">
+            <!-- Password -->
+            <div class="col-md-6 mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                formControlName="password"
+                placeholder="Enter password"
+              />
+              <div
+                *ngIf="
+                  studentForm.get('password')?.invalid &&
+                  studentForm.get('password')?.touched
+                "
+                class="text-danger mt-1"
+              >
+                Password is required (min 6 characters).
+              </div>
+            </div>
+
+            <!-- NIC Number -->
+            <div class="col-md-6 mb-3">
+              <label for="nicNumber" class="form-label">NIC Number</label>
+              <input
+                type="text"
+                id="nicNumber"
+                class="form-control"
+                formControlName="nicNumber"
+                placeholder="Enter NIC Number (e.g., 123456789V)"
+              />
+              <div
+                *ngIf="
+                  studentForm.get('nicNumber')?.invalid &&
+                  studentForm.get('nicNumber')?.touched
+                "
+                class="text-danger mt-1"
+              >
+                NIC Number must be valid.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Address -->
+            <div class="col-md-6 mb-3">
+              <label for="address" class="form-label">Address</label>
+              <textarea
+                id="address"
+                class="form-control"
+                formControlName="address"
+                rows="3"
+                placeholder="Enter address"
+              ></textarea>
+              <div
+                *ngIf="
+                  studentForm.get('address')?.invalid &&
+                  studentForm.get('address')?.touched
+                "
+                class="text-danger mt-1"
+              >
+                Address is required (min 5 characters).
+              </div>
+            </div>
+
+            <!-- Mobile Number -->
+            <div class="col-md-6 mb-3">
+              <label for="mobileNumber" class="form-label">Mobile Number</label>
+              <input
+                type="tel"
+                id="mobileNumber"
+                class="form-control"
+                formControlName="mobileNumber"
+                placeholder="e.g., 123456789"
+              />
+              <div
+                *ngIf="
+                  studentForm.get('mobileNumber')?.invalid &&
+                  studentForm.get('mobileNumber')?.touched
+                "
+                class="text-danger mt-1"
+              >
+                Mobile Number must be valid.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Date of Birth -->
+            <div class="col-md-6 mb-3">
+              <label for="dateOfBirth" class="form-label">Date of Birth</label>
+              <input
+                type="date"
+                id="dateOfBirth"
+                class="form-control"
+                formControlName="dateOfBirth"
+                placeholder="Dec 12, 2024"
+              />
+              <div
+                *ngIf="
+                  studentForm.get('dateOfBirth')?.invalid &&
+                  studentForm.get('dateOfBirth')?.touched
+                "
+                class="text-danger mt-1"
+              >
+                Date of Birth is required.
+              </div>
+            </div>
+
+            <!-- Gender -->
+            <!-- <div class="col-md-6 mb-3">
+              <label class="form-label">Gender</label>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="male"
+                  value="Male"
+                  formControlName="gender"
+                />
+                <label class="form-check-label" for="male">Male</label>
+              </div>
+              <div class="form-check form-check-inline ps-2">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="female"
+                  value="Female"
+                  formControlName="gender"
+                />
+                <label class="form-check-label" for="female">Female</label>
+              </div>
+              <div
+                *ngIf="
+                  studentForm.get('gender')?.invalid &&
+                  studentForm.get('gender')?.touched
+                "
+                class="text-danger mt-1"
+              >
+                Gender is required.
+              </div>
+            </div> -->
+            <div class="col-md-6 mb-4">
+              <label class="form-label fw-bold">Gender</label>
+              <div class="d-flex align-items-center gap-3 mt-2">
+                <!-- Male Radio Button -->
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    id="male"
+                    value="Male"
+                    formControlName="gender"
+                  />
+                  <label class="form-check-label" for="male">Male</label>
                 </div>
-
-                <div class="row">
-                  <!-- Password -->
-                  <div class="col-md-6 mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input
-                      type="password"
-                      id="password"
-                      class="form-control"
-                      formControlName="password"
-                      placeholder="Enter password"
-                    />
-                    <div
-                      *ngIf="
-                        studentForm.get('password')?.invalid &&
-                        studentForm.get('password')?.touched
-                      "
-                      class="text-danger mt-1"
-                    >
-                      Password is required (min 6 characters).
-                    </div>
-                  </div>
-
-                  <!-- NIC Number -->
-                  <div class="col-md-6 mb-3">
-                    <label for="nicNumber" class="form-label">NIC Number</label>
-                    <input
-                      type="text"
-                      id="nicNumber"
-                      class="form-control"
-                      formControlName="nicNumber"
-                      placeholder="Enter NIC Number (e.g., 123456789V)"
-                    />
-                    <div
-                      *ngIf="
-                        studentForm.get('nicNumber')?.invalid &&
-                        studentForm.get('nicNumber')?.touched
-                      "
-                      class="text-danger mt-1"
-                    >
-                      NIC Number must be valid.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <!-- Address -->
-                  <div class="col-md-6 mb-3">
-                    <label for="address" class="form-label">Address</label>
-                    <textarea
-                      id="address"
-                      class="form-control"
-                      formControlName="address"
-                      rows="3"
-                      placeholder="Enter address"
-                    ></textarea>
-                    <div
-                      *ngIf="
-                        studentForm.get('address')?.invalid &&
-                        studentForm.get('address')?.touched
-                      "
-                      class="text-danger mt-1"
-                    >
-                      Address is required (min 5 characters).
-                    </div>
-                  </div>
-
-                  <!-- Mobile Number -->
-                  <div class="col-md-6 mb-3">
-                    <label for="mobileNumber" class="form-label"
-                      >Mobile Number</label
-                    >
-                    <input
-                      type="tel"
-                      id="mobileNumber"
-                      class="form-control"
-                      formControlName="mobileNumber"
-                      placeholder="e.g., 123456789"
-                    />
-                    <div
-                      *ngIf="
-                        studentForm.get('mobileNumber')?.invalid &&
-                        studentForm.get('mobileNumber')?.touched
-                      "
-                      class="text-danger mt-1"
-                    >
-                      Mobile Number must be valid.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <!-- Date of Birth -->
-                  <div class="col-md-6 mb-3">
-                    <label for="dateOfBirth" class="form-label"
-                      >Date of Birth</label
-                    >
-                    <input
-                      type="date"
-                      id="dateOfBirth"
-                      class="form-control"
-                      formControlName="dateOfBirth"
-                    />
-                    <div
-                      *ngIf="
-                        studentForm.get('dateOfBirth')?.invalid &&
-                        studentForm.get('dateOfBirth')?.touched
-                      "
-                      class="text-danger mt-1"
-                    >
-                      Date of Birth is required.
-                    </div>
-                  </div>
-
-                  <!-- Gender -->
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label">Gender</label>
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        id="male"
-                        value="Male"
-                        formControlName="gender"
-                      />
-                      <label class="form-check-label" for="male">Male</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        id="female"
-                        value="Female"
-                        formControlName="gender"
-                      />
-                      <label class="form-check-label" for="female"
-                        >Female</label
-                      >
-                    </div>
-                    <div
-                      *ngIf="
-                        studentForm.get('gender')?.invalid &&
-                        studentForm.get('gender')?.touched
-                      "
-                      class="text-danger mt-1"
-                    >
-                      Gender is required.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <!-- Profile Picture -->
-                  <div class="col-md-6 mb-3">
-                    <label for="profilePicture" class="form-label"
-                      >Profile Picture</label
-                    >
-                    <input
-                      type="file"
-                      id="profilePicture"
-                      class="form-control"
-                      formControlName="profilePicture"
-                    />
-                  </div>
-
-                  <!-- Registration Fee -->
-                  <div class="col-md-6 mb-3">
-                    <label for="registrationFee" class="form-label"
-                      >Registration Fee</label
-                    >
-                    <input
-                      type="number"
-                      id="registrationFee"
-                      class="form-control"
-                      formControlName="registrationFee"
-                      placeholder="Enter registration fee"
-                    />
-                    <div
-                      *ngIf="
-                        studentForm.get('registrationFee')?.invalid &&
-                        studentForm.get('registrationFee')?.touched
-                      "
-                      class="text-danger mt-1"
-                    >
-                      Registration Fee is required.
-                    </div>
-                  </div>
+            
+                <!-- Female Radio Button -->
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    id="female"
+                    value="Female"
+                    formControlName="gender"
+                  />
+                  <label class="form-check-label" for="female">Female</label>
                 </div>
               </div>
-
-              <!-- Modal Footer -->
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  [disabled]="studentForm.invalid"
-                >
-                  Register
-                </button>
+            
+              <!-- Validation Message -->
+              <div
+                *ngIf="
+                  studentForm.get('gender')?.invalid &&
+                  studentForm.get('gender')?.touched
+                "
+                class="text-danger mt-2"
+              >
+                <small><i class="bi bi-exclamation-circle-fill me-1"></i> Gender is required.</small>
               </div>
-            </form>
+            </div>
+            
+          </div>
+
+          <div class="row">
+            <!-- Profile Picture -->
+            <div class="col-md-6 mb-3">
+              <label for="profilePicture" class="form-label"
+                >Profile Picture</label
+              >
+              <input
+                type="file"
+                id="profilePicture"
+                class="form-control"
+                formControlName="profilePicture"
+              />
+            </div>
+
+            <!-- Registration Fee -->
+            <div class="col-md-6 mb-3">
+              <label for="registrationFee" class="form-label"
+                >Registration Fee</label
+              >
+              <input
+                type="number"
+                id="registrationFee"
+                class="form-control"
+                formControlName="registrationFee"
+                placeholder="Enter registration fee"
+              />
+              <div
+                *ngIf="
+                  studentForm.get('registrationFee')?.invalid &&
+                  studentForm.get('registrationFee')?.touched
+                "
+                class="text-danger mt-1"
+              >
+                Registration Fee is required.
+              </div>
+            </div>
           </div>
         </div>
+
+        <div
+        *ngIf="
+          studentForm.get('feePaid')?.invalid &&
+          studentForm.get('feePaid')?.touched
+        "
+        class="text-danger mt-2"
+      >
+        <small><i class="bi bi-exclamation-circle-fill me-1"></i> You must paid the registration fee is paid.</small>
       </div>
+    
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal" (click)="onClose()"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="studentForm.invalid"
+          >
+            Register
+          </button>
+        </div>
+      </form>
     </div>
+
     <div *ngIf="!studentForm">
       <p>Loading...</p>
     </div>

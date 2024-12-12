@@ -1,8 +1,50 @@
 
+@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+/* Bootstrap Icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+.avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    background-color: #6c757d;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 10px;
+  }
+  
+  .table {
+    border: #6c757d44;
+  }
+  
+  .text-end button {
+    margin: 0 5px;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
   .custom-navbar {
     background-color: rgba(0, 51, 102, 0.8); /* Dark blue with transparency */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
     border-radius: 10px 10px 0px 0px; /* Rounded corners */
   }
   
-  
+ /* Position the pagination fixed at the bottom of the page */
+.pagination-controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff; /* Optional: For better visibility */
+  padding: 10px 0;
+  text-align: center;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: to give a slight shadow */
+}

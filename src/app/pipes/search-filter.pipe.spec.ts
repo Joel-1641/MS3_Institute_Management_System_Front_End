@@ -1,4 +1,4 @@
-import { SearchCoursePipe } from './search-course.pipe';
+import { SearchCoursePipe } from './search-filter.pipe';
 
 describe('SearchCoursePipe', () => {
   it('create an instance', () => {

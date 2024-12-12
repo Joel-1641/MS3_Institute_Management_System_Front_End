@@ -11,12 +11,16 @@ export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'analytics', component: AnalyticsComponent },
-  { path: 'student/register', component: StudentRegisterComponent },
-  { path: 'students/edit/:id', component: StudentRegisterComponent },
+
   { path: 'students', component: StudentComponent },
   { path: 'courses', component: CoursesComponent },
+
+  { path: 'students/register', component: StudentRegisterComponent },
+  { path: 'students/edit/:id', component: StudentRegisterComponent },
+  
   { path: 'courses/add', component: CourseEditComponent },
-  { path: 'courses/edit/:id', component: CourseEditComponent }, // Edit route
+  { path: 'courses/edit/:id', component: CourseEditComponent }, 
+  
   { path: 'payment', component: PaymentComponent },
 
   // { path: 'update-profile', component: UpdateProfileComponent },

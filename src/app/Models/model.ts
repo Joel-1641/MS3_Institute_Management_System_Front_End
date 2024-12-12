@@ -31,6 +31,7 @@ export interface Courses{
     courseName:string;
     level:string;
     courseFee:string;
+    courseType:string
     description:string;
 }
 
