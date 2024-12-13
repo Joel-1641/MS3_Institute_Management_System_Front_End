@@ -6,9 +6,13 @@ import { CoursesComponent } from './admin/courses/courses.component';
 import { PaymentComponent } from './admin/payment/payment.component';
 import { StudentRegisterComponent } from './admin/student-register/student-register.component';
 import { StudentComponent } from './admin/student/student.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  // { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+
+  { path: '', component: LoginComponent },
+
   { path: 'dashboard', component: DashboardComponent },
   { path: 'analytics', component: AnalyticsComponent },
 

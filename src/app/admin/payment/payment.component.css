@@ -1,0 +1,23 @@
+
+@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+/* Bootstrap Icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+
+.container {
+    margin-top: 20px;
+  }
+  
+  .card {
+    border-radius: 8px;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .btn {
+    margin-right: 5px;
+  }
+  

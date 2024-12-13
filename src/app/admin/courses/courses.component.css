@@ -1,20 +1,30 @@
+@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+/* Bootstrap Icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+
 /* Container for all courses */
 .courses-container {
-    background-color: rgba(10, 3, 48, 0.068);
-    padding: 2rem;
-    gap: 1.5rem;
-  }
-  
-  /* Individual Course Card */
-  .course-card {
-    width: 180px;
-    height: 280px;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  /* Card Content */
+  background-color: rgba(10, 3, 48, 0.068);
+  padding: 2rem;
+  gap: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 20px; Space between cards */
+  justify-content: flex-start;
+}
+
+/* Individual Course Card */
+.course-card {
+  width: 180px;
+  height: 280px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Card Content */
 .card-content {
   flex-grow: 1;
 }
@@ -24,68 +34,73 @@
   position: absolute;
   top: 85px;
   right: 2px;
-  background-color:  rgba(3, 35, 68, 0.8); /* Semi-transparent background */
+  background-color: rgba(3, 35, 68, 0.8);
+  /* Semi-transparent background */
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 1rem;
   font-weight: bold;
   color: #ffffff;
 }
-  .course-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Card Image */
-  .card-image img {
-    width: 100%;
-    max-height: 120px;
-    object-fit:cover;
-    border-radius: 10px 10px 0 0;
-  }
-  
-  /* Card Body */
-  .card-body {
-     display: flex;
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Image */
+.card-image img {
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Card Body */
+.card-body {
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-    /* padding: 1rem; */
-    position: relative;
-  }
-  
-  .card-title {
-    color:  rgba(3, 35, 68, 0.8);
-    font-size: 1.25rem;
-    font-weight: bold;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  .card-text {
-    font-size: 0.9rem;
-    color: #555;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /* white-space: nowrap; */
-  }
-  
-  .course-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  .custom-navbar {
-    background-color: rgba(0, 51, 102, 0.8); /* Dark blue with transparency */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
-    border-radius: 10px 10px 0px 0px; /* Rounded corners */
-  }
-  
-  /* Overlay Buttons */
+  /* padding: 1rem; */
+  position: relative;
+}
+
+.card-title {
+  color: rgba(3, 35, 68, 0.8);
+  font-size: 1.25rem;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.custom-navbar {
+  background-color: rgba(0, 51, 102, 0.8);
+  /* Dark blue with transparency */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Shadow effect */
+  border-radius: 10px 10px 0px 0px;
+  /* Rounded corners */
+}
+
+/* Overlay Buttons */
 .overlay-buttons {
   position: absolute;
-  bottom: 10px; 
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -96,15 +111,17 @@
   border-radius: 5px;
   width: 100%;
 }
-  
+
 /* Position the pagination fixed at the bottom of the page */
 .pagination-controls {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #fff; /* Optional: For better visibility */
+  background-color: #fff;
+  /* Optional: For better visibility */
   padding: 10px 0;
   text-align: center;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: to give a slight shadow */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  /* Optional: to give a slight shadow */
 }
