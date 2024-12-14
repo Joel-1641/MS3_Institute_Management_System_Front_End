@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Pipes } from '../../pipes/search-filter.pipe';
 import { NgxPaginationModule} from 'ngx-pagination';
+import { MatSnackBar} from '@angular/material/snack-bar';  
 
 @Component({
   selector: 'app-courses',
@@ -27,27 +28,60 @@ export class CoursesComponent implements OnInit {
 
   
 
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseService,private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     // this.loadCourses();
     this.fetchCourses();
   }
 
+ 
   // Fetch courses from the backend
-  fetchCourses(): void {
-    this.courseService.getCourses().subscribe({
-      next: (data) => {
-        this.courses = data; // Store all courses
-        this.isLoading = false;
-      },
-      error: (error) => {
-        this.errorMessage = 'Failed to load courses. Please try again later.';
-        console.error(error);
-        this.isLoading = false;
-      },
-    });
-  }
+fetchCourses(): void {
+  this.isLoading = true; // Indicate that data is being fetched
+  this.courseService.getCourses().subscribe({
+    next: (data) => {
+      this.courses = data; // Store all courses
+      this.isLoading = false;
+
+      // Show success snackbar once the courses are loaded
+      // this.snackBar.open('Courses loaded successfully!', 'Close', {
+      //   duration: 3000, // Duration in milliseconds
+      //   horizontalPosition: 'right', // Position on the horizontal axis
+      //   verticalPosition: 'top', // Position on the vertical axis
+      //   panelClass: ['custom-snackbar'], // Optional: add a custom class for success styling
+      // });
+    },
+    error: (error) => {
+      this.errorMessage = 'Failed to load courses. Please try again later.';
+      console.error(error);
+      this.isLoading = false;
+
+      // Show error snackbar if fetching courses fails
+      this.snackBar.open('Failed to load courses. Please try again later.', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['error-snackbar'], // Custom class for error styling
+      });
+    },
+  });
+}
+
+  // fetchCourses(): void {
+  //   this.courseService.getCourses().subscribe({
+  //     next: (data) => {
+  //       this.courses = data; // Store all courses
+  //       this.isLoading = false;
+  //     },
+  //     error: (error) => {
+  //       this.errorMessage = 'Failed to load courses. Please try again later.';
+  //       console.error(error);
+  //       this.isLoading = false;
+  //     },
+  //   });
+  // }
+
   get totalPages(): number {
     return Math.ceil(this.courses.length / this.itemsPerPage);
   }
@@ -63,6 +97,68 @@ export class CoursesComponent implements OnInit {
       this.currentPage++;
     }
   }
+  
+  // Delete a course
+deleteCourse(id: number): void {
+  // Show confirmation snackbar
+  this.snackBar.open('Are you sure you want to delete this course?', 'Yes', {
+    duration: 6000, // Duration for the confirmation snackbar
+    horizontalPosition: 'center',
+    verticalPosition: 'top',
+    panelClass: ['confirmation-snackbar'],
+  }).onAction().subscribe(() => {
+    // User clicked "Yes"
+    this.courseService.deleteCourse(id).subscribe({
+      next: () => {
+        // Show success snackbar if course deleted successfully
+        this.snackBar.open('Course deleted successfully!', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['custom-snackbar'], // Optional: add a custom class for success styling
+        });
+        this.fetchCourses(); // Refresh the course list
+      },
+      error: (err) => {
+        console.error('Error deleting course:', err);
+        this.snackBar.open('Failed to delete the course. Please try again later.', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['error-snackbar'], // Custom class for error styling
+        });
+      },
+    });
+  });
+}
+
+
+  // deleteCourse(id: number): void {
+  //   if (confirm('Are you sure you want to delete this course?')) {
+  //     this.courseService.deleteCourse(id).subscribe({
+  //       next: () => {
+  //         this.snackBar.open('Course deleted successfully!', 'Close', {
+  //           duration: 3000, // Duration in milliseconds
+  //           horizontalPosition: 'right', // Position on the horizontal axis
+  //           verticalPosition: 'top', // Position on the vertical axis
+  //           panelClass: ['custom-snackbar'], // Optional: add a custom class for styling
+  //         });
+  //         this.fetchCourses(); // Refresh the list
+  //       },
+  //       error: (err) => {
+  //         console.error('Error deleting course:', err);
+  //         this.snackBar.open('Failed to delete the course. Please try again later.', 'Close', {
+  //           duration: 3000, 
+  //           horizontalPosition: 'right',
+  //           verticalPosition: 'top',
+  //           panelClass: ['error-snackbar'], // Custom class for error styling
+  //         });
+  //       },
+  //     });
+  //   }
+  // }
+  
+
   // Update courses based on search or type filter (optional, just in case you want to store filtered results)
   // updateFilteredCourses() {
   //   this.filteredCourses = this.courses; // This line isn't strictly needed, as filtering happens in the template
@@ -94,49 +190,6 @@ export class CoursesComponent implements OnInit {
   //   });
   // }
 
-  // Delete a course
-  deleteCourse(id: number): void {
-    if (confirm('Are you sure you want to delete this course?')) {
-      this.courseService.deleteCourse(id).subscribe({
-        next: () => {
-          alert('Course deleted successfully!');
-          this.fetchCourses(); // Refresh the list
-        },
-        error: (err) => {
-          console.error('Error deleting course:', err);
-        },
-      });
-    }
-  }
-
-  // Calculate paginated courses based on the current page
-  // updatePaginatedCourses(): void {
-  //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-  //   const endIndex = startIndex + this.itemsPerPage;
-  //   this.courses = this.courses.slice(startIndex, endIndex);
-  // }
-
-  // Navigate to the previous page
-  // previousPage(): void {
-  //   if (this.currentPage > 1) {
-  //     this.currentPage--;
-  //     this.updatePaginatedCourses();
-  //   }
-  // }
-
-  // Navigate to the next page
-  // nextPage(): void {
-  //   if (this.currentPage < this.totalPages) {
-  //     this.currentPage++;
-  //     this.updatePaginatedCourses();
-  //   }
-  // }
-
-  // Calculate the total number of pages
-  // get totalPages(): number {
-  //   return Math.ceil(this.courses.length / this.itemsPerPage);
-  // }
-}
 
 //   courses = [
 //     { image:'https://th.bing.com/th/id/OIP._Lm_T3scKhVEVFC54gcRxwHaE8?w=279&h=186&c=7&r=0&o=5&pid=1.7',
@@ -182,4 +235,4 @@ export class CoursesComponent implements OnInit {
 //       offer: '10%'
 //     }
 //   ];
-// }
+}

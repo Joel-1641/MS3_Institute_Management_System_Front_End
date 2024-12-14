@@ -1,0 +1,42 @@
+/* .nav-item.active .nav-link {
+    font-weight: bold;
+    color: #007bff; 
+} */
+
+@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+/* Bootstrap Icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+.avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    background-color: #6c757d;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 10px;
+  }
+  
+  .table {
+    text-align: center;
+  }
+  
+  .text-end button {
+    margin: 0 5px;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  h6 {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  

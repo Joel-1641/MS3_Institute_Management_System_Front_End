@@ -1,0 +1,14 @@
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  img.rounded-circle {
+    border: 3px solid #DC5F00;
+  }
+  

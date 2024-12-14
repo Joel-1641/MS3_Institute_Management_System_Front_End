@@ -2,3 +2,14 @@
     pointer-events: none;
   }
   
+  /* Success snackbar styling */
+.custom-snackbar {
+  background-color: #4caf50; /* Green for success */
+  color: white;
+}
+
+/* Error snackbar styling */
+.error-snackbar {
+  background-color: #f44336; /* Red for error */
+  color: white;
+}

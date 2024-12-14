@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { CourseService } from '../../services/course.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatSnackBar} from '@angular/material/snack-bar';  
 import * as bootstrap from 'bootstrap';
 import axios from 'axios';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-course-edit',
@@ -27,7 +28,8 @@ export class CourseEditComponent implements OnInit {
     private fb: FormBuilder,
     private courseService: CourseService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.courseForm = this.fb.group({
       courseName: ['', Validators.required],
@@ -73,9 +75,18 @@ export class CourseEditComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching course details:', err);
+  
+        // Snackbar for error notification
+        this.snackBar.open('Failed to load course details. Please try again.', 'Close', {
+          duration: 3000, // Duration in milliseconds
+          horizontalPosition: 'right', // Position on the horizontal axis
+          verticalPosition: 'top', // Position on the vertical axis
+          panelClass: ['error-snackbar'], // Custom class for error styling
+        });
       },
     });
   }
+  
 
   private showModal(): void {
     if (this.addCourseModal) {
@@ -134,7 +145,7 @@ export class CourseEditComponent implements OnInit {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
       formData.append('upload_preset', 'IT_Scholar'); // Replace with your preset
-      formData.append('folder', 'Course Gallery'); // Replace with your folder name
+      formData.append('folder', 'IT_Scholar'); // Replace with your folder name
 
       // Upload image to Cloudinary
       axios
@@ -155,8 +166,16 @@ export class CourseEditComponent implements OnInit {
         })
         .catch((error) => {
           console.error('Error uploading image:', error);
-          alert('Failed to upload the image. Please try again.');
+        
+          // Use MatSnackBar for error notification
+          this.snackBar.open('Failed to upload the image. Please try again.', 'Close', {
+            duration: 3000, // Duration in milliseconds
+            horizontalPosition: 'right', // Horizontal alignment
+            verticalPosition: 'top', // Vertical alignment
+            panelClass: ['error-snackbar'], // Custom class for error styling
+          });
         });
+        
     } else {
       // If no image is selected, proceed with existing data
       this.saveCourse(courseData);
@@ -169,24 +188,80 @@ export class CourseEditComponent implements OnInit {
     if (this.isEditMode) {
       this.courseService.updateCourse(this.courseId!, courseData).subscribe({
         next: () => {
-          alert('Course updated successfully!');
+          // Success snackbar for course update
+          this.snackBar.open('Course updated successfully!', 'Close', {
+            duration: 3000, // Duration in milliseconds
+            horizontalPosition: 'right', // Position on the horizontal axis
+            verticalPosition: 'top', // Position on the vertical axis
+            panelClass: ['custom-snackbar'], // Custom class for success styling
+          });
+  
           this.closeModal(); // Close the modal after update
           this.router.navigate(['/courses']);
         },
-        error: (err) => console.error('Error updating course:', err),
+        error: (err) => {
+          console.error('Error updating course:', err);
+          
+          // Error snackbar for course update failure
+          this.snackBar.open('Failed to update the course. Please try again.', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['error-snackbar'], // Custom class for error styling
+          });
+        },
       });
     } else {
       this.courseService.addCourse(courseData).subscribe({
         next: () => {
-          alert('Course added successfully!');
-          this.closeModal(); // Close the modal after add
+          // Success snackbar for adding course
+          this.snackBar.open('Course added successfully!', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['custom-snackbar'], // Custom class for success styling
+          });
+  
+          this.closeModal(); // Close the modal after adding
           this.router.navigate(['/courses']);
         },
-        error: (err) => console.error('Error adding course:', err),
-      
+        error: (err) => {
+          console.error('Error adding course:', err);
+  
+          // Error snackbar for adding course failure
+          this.snackBar.open('Failed to add the course. Please try again.', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['error-snackbar'], // Custom class for error styling
+          });
+        },
       });
     }
   }
+  
+  // private saveCourse(courseData: any): void {
+  //   if (this.isEditMode) {
+  //     this.courseService.updateCourse(this.courseId!, courseData).subscribe({
+  //       next: () => {
+  //         alert('Course updated successfully!');
+  //         this.closeModal(); // Close the modal after update
+  //         this.router.navigate(['/courses']);
+  //       },
+  //       error: (err) => console.error('Error updating course:', err),
+  //     });
+  //   } else {
+  //     this.courseService.addCourse(courseData).subscribe({
+  //       next: () => {
+  //         alert('Course added successfully!');
+  //         this.closeModal(); // Close the modal after add
+  //         this.router.navigate(['/courses']);
+  //       },
+  //       error: (err) => console.error('Error adding course:', err),
+      
+  //     });
+  //   }
+  // }
 
   // Handle file selection
   onFileChange(event: any): void {

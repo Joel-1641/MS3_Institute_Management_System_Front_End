@@ -1,3 +1,5 @@
+<div class="d-flex " >
+<div  class="flex-container">
 <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white dark:bg-gray-800 border-bottom border-bottom-lg-0 border-end-lg">
   <div class="container-fluid">
     <!-- Toggler for smaller screens -->
@@ -7,7 +9,7 @@
 
     <!-- Brand Section -->
     <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" routerLink="/dashboard">
-      <img src="/Logo.PNG" style="width: 100%; ; height: auto;" alt="IT Scholar Logo">
+      <img src="/Logo.PNG" style="width: 100%; ; height: 100%;" alt="IT Scholar Logo">
     </a>
 
     <!-- Sidebar Menu -->
@@ -15,34 +17,39 @@
       <!-- Navigation Links -->
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
+          <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link">
             <i class="bi bi-house"></i> Dashboard
           </a>
         </li>
         <li class="nav-item">
-          <a routerLink="/analytics" routerLinkActive="active" class="nav-link">
+          <a routerLink="/admin/analytics" routerLinkActive="active" class="nav-link">
             <i class="bi bi-bar-chart"></i> Analytics
           </a>
         </li>
         <li class="nav-item">
-          <a routerLink="/students" routerLinkActive="active" class="nav-link">
+          <a routerLink="/admin/students" routerLinkActive="active" class="nav-link">
             <i class="bi bi-people"></i> Students
           </a>
         </li>
         <li class="nav-item">
-          <a routerLink="/courses" routerLinkActive="active" class="nav-link">
+          <a routerLink="/admin/courses" routerLinkActive="active" class="nav-link">
             <i class="bi bi-book"></i> Courses
           </a>
         </li>
         <li class="nav-item">
-          <a routerLink="/payment" routerLinkActive="active" class="nav-link">
-            <i class="bi bi-coin"></i>Payment
+          <a routerLink="/admin/payment" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-cash"></i>Payment
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/admin/report" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-printer"></i>Report
           </a>
         </li>
       </ul>
 
       <!-- Divider -->
-      <hr class="navbar-divider my-1 opacity-20">
+      <hr class="navbar-divider my-1 opacity-100">
 
 
       
@@ -53,12 +60,12 @@
       <!-- Additional Links -->
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link">
+          <a routerLink="/admin/Account" routerLinkActive="active" class="nav-link">
             <i class="bi bi-person-square"></i> Account
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">
+          <a routerLink="/admin/logout" routerLinkActive="active" class="nav-link">
             <i class="bi bi-box-arrow-left"></i> Logout
           </a>
         </li>
@@ -96,3 +103,12 @@
           </li>
         </ng-container>
       </ul> -->
+    </div>
+    <div class="flex-grow-1 p-3 b-example-divider" style="background-color: #01011b1e;  left:80px">
+      <router-outlet></router-outlet>
+    </div>
+   </div>
+     
+   
+    
+ 

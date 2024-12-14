@@ -1,0 +1,23 @@
+.add-course-card {
+    border: 2px dashed #f06292;
+    border-radius: 10px;
+    text-align: center;
+    height: 300px;
+    width: 250px;
+    cursor: pointer;
+    margin-bottom: 10px;;
+  }
+  .add-course-card:hover {
+    background-color: #fce4ec;
+  }
+  
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header h6 {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  

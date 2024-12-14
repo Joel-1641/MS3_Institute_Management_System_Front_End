@@ -7,7 +7,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, FormsModule, CommonModule, RouterOutlet],
+  imports: [RouterLink, FormsModule, CommonModule,RouterOutlet],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })

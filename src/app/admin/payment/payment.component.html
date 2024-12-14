@@ -1,57 +1,64 @@
-<div class="card shadow border-0 m-5">
-    <div class="card-header">
-      <h5 class="mb-0">New Requests</h5>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-hover table-nowrap">
-        <thead class="thead-light">
-          <tr style="text-align:center;">
-            <th scope="col"><span>Name</span></th>
-            <th scope="col">Applying Date</th>
-            <th scope="col">Course</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Offer</th>
-            <th scope="col">Payment</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody style="text-align:center;">
-          <tr *ngFor="let row of tableData">
-            <td>
-              <img
-                [src]="row.avatar"
-                alt="Avatar"
-                class="avatar avatar-sm rounded-circle me-2"
-              />
-              <a class="text-heading font-semibold" href="#">
-                {{ row.name }}
-              </a>
-            </td>
-            <td>
-              <a class="text-heading font-semibold" href="#">
-                {{ row.date}}
-              </a>
-            </td>
-            <td>{{ row.courceName }}</td>
-            <td>${{ row.amount }}</td>
-            <td>{{ row.Offer }}</td>
-            <td>
-              <span class="badge" [ngClass]="getPaymentClass(row.Payment)">
-                {{ row.Payment }}
-              </span>
-            </td>
-            
-            <td>
-              <button class="btn btn-sm btn-square btn-neutral">
-                <i class="bi bi-check-circle text-success" title="Accept"></i>
-              </button>
-              <button class="btn btn-sm btn-square btn-neutral ms-3">
-                <i class="bi bi-x-circle text-danger" title="Reject"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Student Payment Details</h2>
+  <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover">
+          <thead class="table-dark">
+              <tr>
+                  <th>Student Name</th>
+                  <th>NIC</th>
+                  <th>Total Fee</th>
+                  <th>Total Paid</th>
+                  <th>Pay Due</th>
+                  <th>Payment Status</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let student of paymentDetails">
+                  <td>{{ student.name }}</td>
+                  <td>{{ student.nic }}</td>
+                  <td>{{ student.totalFee }}</td>
+                  <td>{{ student.totalPaid }}</td>
+                  <td>{{ student.payDue }}</td>
+                  <td>{{ student.paymentStatus }}</td>
+                  <td>
+                      <button *ngIf="student.paymentStatus === 'Pending'" 
+                              class="btn btn-primary btn-sm" 
+                              (click)="openPaymentPortal(student.nic)">
+                          Pay
+                      </button>
+                      <span *ngIf="student.paymentStatus !== 'Pending'" 
+                            class="text-success">
+                          Completed
+                      </span>
+                  </td>
+              </tr>
+          </tbody>
       </table>
-    </div>
   </div>
-  
+</div>
+
+<!-- Payment Portal Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="paymentModalLabel">Make Payment</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form (ngSubmit)="submitPayment()" #paymentForm="ngForm">
+                  <div class="mb-3">
+                      <label for="nicInput" class="form-label">NIC</label>
+                      <input type="text" class="form-control" id="nicInput" [(ngModel)]="paymentData.nic" name="nic" required readonly>
+                  </div>
+                  <div class="mb-3">
+                      <label for="amountInput" class="form-label">Amount</label>
+                      <input type="number" class="form-control" id="amountInput" [(ngModel)]="paymentData.amount" name="amount" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary" [disabled]="!paymentForm.form.valid">Submit Payment</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

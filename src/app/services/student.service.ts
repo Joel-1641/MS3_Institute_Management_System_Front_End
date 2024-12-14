@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class StudentService {
-  private apiUrl = 'http://localhost:5256/api/Admin/students';
+  private apiUrl = 'https://localhost:7147/api/Admin/students';
 
   constructor(private http: HttpClient) {}
 
@@ -38,8 +38,8 @@ export class StudentService {
   }
 
   // Fetch a course by ID
-  getStudentById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  getStudentById(id: number){
+    return this.http.get<StudentApiResponse[]>(`https://localhost:7147/api/Admin/students/${id}`);
   }
   // Add a new student
   addStudent(studentData: any): Observable<any> {
