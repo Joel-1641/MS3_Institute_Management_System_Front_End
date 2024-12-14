@@ -4,11 +4,16 @@
     <!-- Profile Card (Taller than others) -->
     <div class="col-md-4">
       <div class="card profile-card p-2">
-        <div class="d-flex align-items-center m-4">
-          <img src="https://via.placeholder.com/100" class="rounded-circle me-3" alt="Profile Photo" width="150"  height="150"/>
+        <div  class="d-flex align-items-center m-4">
+          <img 
+          [src]="studentsss?.profilePicture || 'https://via.placeholder.com/150'" 
+          class="rounded-circle me-3" 
+          alt="Profile Photo" 
+          width="150" 
+          height="150"/>
           <div>
-            <h1>
-              Hello, <span>{{username}}</span>!
+            <h1 *ngIf="studentsss">
+              Hello, <span>{{studentsss.fullName}}</span>!
             </h1>
             <p class="text-muted">Welcome back to your dashboard!</p>
           </div>

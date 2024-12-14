@@ -28,7 +28,7 @@ export class SearchCoursePipe implements PipeTransform {
   standalone: true,
 })
 export class SearchStudentPipe implements PipeTransform {
-  transform(students: Student[], searchText: string): any[] {
+  transform(students: Student[], searchText: string): Student[] {
     if (!students || !searchText) {
       return students;
     }
@@ -38,8 +38,8 @@ export class SearchStudentPipe implements PipeTransform {
     // Filter courses by matching title or other fields
     return students.filter(
       (student) =>
-        student.name.toLowerCase().includes(searchText) ||
-      student.email.toLowerCase().includes(searchText)
+        student.fullName.toLowerCase().includes(searchText.toLowerCase()) ||
+      student.email.toLowerCase().includes(searchText.toLowerCase())
     );
   }
 }
@@ -49,14 +49,14 @@ export class SearchStudentPipe implements PipeTransform {
   standalone: true,
 })
 export class SearchStudentByNicPipe implements PipeTransform {
-  transform(students: Student[], searchNic: string): any[] {
+  transform(students: Student[], searchNic: string): Student[] {
     if (!students || !searchNic) {
       return students;
     }
           // Filter students by matching title or other fields
     return students.filter(
       (student) =>
-        student.nic.includes(searchNic) 
+        student.nicNumber.includes(searchNic) 
     );
   }
 }

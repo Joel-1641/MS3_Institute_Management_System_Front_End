@@ -6,44 +6,45 @@ import {
 import { Component, Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Students } from '../Models/model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StudentService {
-  private apiUrl = 'https://localhost:7147/api/Admin/students';
+  private apiUrl = 'https://localhost:5256/api/Admin/students';
 
   constructor(private http: HttpClient) {}
 
   // Fetch all students
-  getStudents(): Observable<Student[]> {
-    return this.http.get<StudentApiResponse[]>(this.apiUrl).pipe(
-      map((data) =>
-        data.map((item) => ({
-          Fee: item.registrationFee,
-          isRegistrationFeePaid: item.isRegistrationFeePaid,
-          userId: item.userId,
-          id: item.studentId,
-          name: item.fullName,
-          email: item.email,
-          profilePicture: item.profilePicture,
-          nic: item.nicNumber,
-          gender: item.gender,
-          address: item.address,
-          mobileNumber: item.mobileNumber,
-          dateOfBirth: item.dateOfBirth,
-        }))
-      )
-    );
+  getStudents() {
+    return this.http.get<Student[]>('http://localhost:5256/api/Admin/students')
+      // map((data) =>
+      //   data.map((item) => ({
+      //     Fee: item.registrationFee,
+      //     isRegistrationFeePaid: item.isRegistrationFeePaid,
+      //     userId: item.userId,
+      //     id: item.studentId,
+      //     name: item.fullName,
+      //     email: item.email,
+      //     profilePicture: item.profilePicture,
+      //     nic: item.nicNumber,
+      //     gender: item.gender,
+      //     address: item.address,
+      //     mobileNumber: item.mobileNumber,
+      //     dateOfBirth: item.dateOfBirth,
+      //   }))
+      // )
+    
   }
 
   // Fetch a course by ID
   getStudentById(id: number){
-    return this.http.get<StudentApiResponse[]>(`https://localhost:7147/api/Admin/students/${id}`);
+    return this.http.get(`http://localhost:5256/api/Admin/students/${id}`);
   }
   // Add a new student
   addStudent(studentData: any): Observable<any> {
-    return this.http.post(this.apiUrl, studentData); // Send POST request with student data
+    return this.http.post(`http://localhost:5256/api/Admin/students`, studentData); // Send POST request with student data
   }
 
   // Update an existing student
@@ -76,10 +77,10 @@ export interface Student {
   isRegistrationFeePaid: boolean;
   userId: number;
   id: number;
-  name: string;
+  fullName: string;
   email: string;
   profilePicture: string;
-  nic: string;
+  nicNumber: string;
   gender: string;
   address: string;
   mobileNumber: number;

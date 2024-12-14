@@ -10,8 +10,8 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StudentService, Student } from '../../services/student.service';
 import { Pipes } from '../../pipes/search-filter.pipe';
-import { Students } from '../../models/model';
 import { MatSnackBar} from '@angular/material/snack-bar';  
+import { Students } from '../../Models/model';
 
 @Component({
   selector: 'app-student',
@@ -27,7 +27,7 @@ export class StudentComponent implements OnInit {
 
   searchText: string = '';
   searchNic: string = '';
-  students: Student[] = []; // All students data
+  stud: Student[] = []; // All students data
   currentPage: number = 1; // Current page for pagination
   itemsPerPage: number = 7; // Number of items per page
   paginatedStudents: Students[] = []; // Paginated students
@@ -74,8 +74,9 @@ export class StudentComponent implements OnInit {
   fetchStudents() {
     this.StudentService.getStudents().subscribe({
       next: (data) => {
-        this.students = data; // Store all students
+        this.stud = data; // Store all students
         this.isLoading = false;
+        console.log(this.stud)
       },
       error: (error) => {
         this.errorMessage = 'Failed to load students. Please try again later.';
@@ -97,7 +98,7 @@ export class StudentComponent implements OnInit {
 
   
   get totalPages(): number {
-    return Math.ceil(this.students.length / this.itemsPerPage);
+    return Math.ceil(this.stud.length / this.itemsPerPage);
   }
 
   prevPage(): void {

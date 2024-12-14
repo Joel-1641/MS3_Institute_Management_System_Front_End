@@ -186,7 +186,7 @@ export class StudentRegisterComponent {
     } else {
       // If no image is selected, proceed with existing data
       this.saveStudent(studentData);
-      this.router.navigate(['/students']);
+      this.router.navigate(['/admin/students']);
     }
   }
 

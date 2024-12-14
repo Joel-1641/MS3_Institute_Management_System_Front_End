@@ -2,7 +2,7 @@ import { CommonModule, NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { StudentService } from '../../services/student.service';
+import { StudentApiResponse, StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,35 +28,23 @@ export class DashboardComponent {
     paid: 0,
     due: 0,
   };
-  studentid:number=4003;
+  studentid:number=3;
 
 username: any;
-students:any[]=[]
+studentsss:any
 
   constructor(private http: HttpClient,private studentservice:StudentService) {}
 
   ngOnInit(): void {
     this.getstudent(this.studentid)
-    this.assignUsernames()
   }
 
   getstudent(studentid: number){
     this.studentservice.getStudentById(studentid).subscribe(data=>{
-      this.students = data
-    
-
-
- console.log(this.students)
-
+      this.studentsss = data
+ console.log(this.studentsss)
     })
-
   }
-
-  assignUsernames(): void {
-  this.students.forEach(student => {
-    this.username = student.fullName ;
-  });
-}
 
   // fetchStudentData(): void {
   //   this.http.get('/api/student').subscribe((data: any) => {

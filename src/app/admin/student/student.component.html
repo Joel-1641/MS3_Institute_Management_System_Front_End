@@ -30,7 +30,7 @@
         </span>
       </div>
       <!-- Add Course Button -->
-      <button class="btn btn-light" [routerLink]="['/students/register']">
+      <button class="btn btn-light" [routerLink]="['/admin/students/register']">
         <i class="bi bi-plus"></i> Add Student
       </button>
     </div>
@@ -53,7 +53,7 @@
       </tr>
     </thead>
     <tbody style="text-align: left">
-      <tr *ngFor="let student of students | searchByNic : searchNic | searchStudent : searchText | paginate: currentPage: itemsPerPage ">
+      <tr *ngFor="let student of stud | searchByNic : searchNic | searchStudent : searchText | paginate: currentPage: itemsPerPage ">
         <td>
           <img
             *ngIf="student.profilePicture"
@@ -64,10 +64,10 @@
           <span *ngIf="!student.profilePicture" class="avatar-placeholder">
             {{ student.name[0] }}
           </span>
-          {{ student.name | charLimit:10 }}
+          {{ student.fullName | charLimit:10 }}
         </td>
         <td>{{ student.email | charLimit:15 }}</td>
-        <td>{{ student.nic }}</td>
+        <td>{{ student.nicNumber}}</td>
         <td>{{ student.gender }}</td>
         <td>{{ student.mobileNumber }}</td>
         <td>{{ student.address | charLimit:15 }}</td>
@@ -78,7 +78,7 @@
         <td>
           <button
             class="btn btn-sm btn-square btn-neutral"
-            [routerLink]="['/students/edit', student.id]"
+            [routerLink]="['/admin/students/edit', student.id]"
           >
             <i class="bi bi-pencil-square text-primary" title="Edit"></i>
           </button>
