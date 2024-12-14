@@ -5,6 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,7 @@ export class LoginComponent {
   adminCredentials = { email: 'admin@example.com', password: 'admin123' };
   studentCredentials = { email: 'student@example.com', password: 'student123' };
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2,private router:Router) {}
 
   ngOnInit() {
     this.renderer.addClass(document.body, 'modal-open'); // Lock background
@@ -53,8 +54,14 @@ export class LoginComponent {
     } else if (
       this.email === this.studentCredentials.email &&
       this.password === this.studentCredentials.password
+      
     ) {
-      this.authenticated.emit('student');
+      console.log(this.email);
+      console.log(this.password);
+
+      // Navigate to student dashboard
+      this.router.navigate(['/student-dashboard']);
+      console.log('welcom dash board')
     } else {
       alert('Invalid credentials');
     }

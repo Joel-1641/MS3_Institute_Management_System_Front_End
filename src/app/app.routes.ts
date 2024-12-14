@@ -12,31 +12,33 @@ import { CourseEditComponent } from './admin/course-edit/course-edit.component';
 import { PaymentComponent } from './admin/payment/payment.component';
 
 export const routes: Routes = [
-  // { path: '', component: HomeComponent },
-  // {
-  //   path: 'admin',
-  //   component: AdminComponent,
-  //   children: [
-  //     { path: 'dashboard', component: DashboardComponent },
-  //     { path: 'analytics', component: AnalyticsComponent },
+  { path: '', component: HomeComponent },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+       { path: 'analytics', component: AnalyticsComponent },
 
-  //     { path: 'students', component: StudentComponent },
-  //     { path: 'courses', component: CoursesComponent },
+      { path: 'students', component: StudentComponent },
+       { path: 'courses', component: CoursesComponent },
 
-  //     { path: 'students/register', component: StudentRegisterComponent },
-  //     { path: 'students/edit/:id', component: StudentRegisterComponent },
+      { path: 'students/register', component: StudentRegisterComponent },
+      { path: 'students/edit/:id', component: StudentRegisterComponent },
 
-  //     { path: 'courses/add', component: CourseEditComponent },
-  //     { path: 'courses/edit/:id', component: CourseEditComponent },
+      { path: 'courses/add', component: CourseEditComponent },
+      { path: 'courses/edit/:id', component: CourseEditComponent },
 
-  //     { path: 'payment', component: PaymentComponent },
-  //     { path: 'Account', component: HomeComponent },
-  //     { path: 'logout', component: HomeComponent },
-  //   ],
+      // { path: 'payment', component: PaymentComponent },
+      { path: 'Account', component: HomeComponent },
+      { path: 'logout', component: HomeComponent },
+    ],
+  },
   // },
-  // { path: 'student-dashboard', component: StudentsComponent },
-  // { path: '**', redirectTo: '' },
+  { path: 'student-dashboard', component: StudentsComponent },
+
 ];
+
 
 
 
