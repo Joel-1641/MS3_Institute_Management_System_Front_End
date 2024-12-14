@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -36,32 +36,39 @@ students:any[]=[]
   constructor(private http: HttpClient,private studentservice:StudentService) {}
 
   ngOnInit(): void {
-    this.fetchStudentData();
-    this.fetchFeeDetails();
     this.getstudent(this.studentid)
+    this.assignUsernames()
   }
 
   getstudent(studentid: number){
     this.studentservice.getStudentById(studentid).subscribe(data=>{
       this.students = data
-      
+    
+
+
  console.log(this.students)
 
     })
 
   }
 
-  fetchStudentData(): void {
-    this.http.get('/api/student').subscribe((data: any) => {
-      this.student = data;
-    });
-  }
+  assignUsernames(): void {
+  this.students.forEach(student => {
+    this.username = student.fullName ;
+  });
+}
 
-  fetchFeeDetails(): void {
-    this.http.get('/api/fees').subscribe((data: any) => {
-      this.feeDetails = data;
-    });
-  }
+  // fetchStudentData(): void {
+  //   this.http.get('/api/student').subscribe((data: any) => {
+  //     this.student = data;
+  //   });
+  // }
+
+  // fetchFeeDetails(): void {
+  //   this.http.get('/api/fees').subscribe((data: any) => {
+  //     this.feeDetails = data;
+  //   });
+  // }
 
   calculateDaysLeft(enrolledDate: string, duration: number): number {
     const startDate = new Date(enrolledDate);
