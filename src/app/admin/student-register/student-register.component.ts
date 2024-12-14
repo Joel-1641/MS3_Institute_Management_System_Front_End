@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,6 +12,7 @@ import * as bootstrap from 'bootstrap';
 import axios from 'axios';
 import { StudentService } from '../../services/student.service';
 import { Pipes } from '../../pipes/search-filter.pipe';
+import { MatSnackBar} from '@angular/material/snack-bar';  
 
 
 @Component({
@@ -35,13 +36,20 @@ export class StudentRegisterComponent {
     private fb: FormBuilder,
     private studentService: StudentService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,private snackBar: MatSnackBar
   ) {
     // Form Initialization
     this.studentForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$')
+        ]
+      ],
       nicNumber: [
         '',
         [Validators.required, Validators.pattern(/^\d{9}[VvXx]$/)],
@@ -61,7 +69,7 @@ export class StudentRegisterComponent {
   }
 
   ngOnInit(): void {
-    const prefilledData = { dateOfBirth: "2024-12-12T00:00:00Z" }; // Example backend data
+    const prefilledData = { dateOfBirth: "yyyy-mm-T00:00:00Z" }; // Example backend data
     const formattedDate = new Date(prefilledData.dateOfBirth).toISOString().split('T')[0];
     this.studentForm.patchValue({ dateOfBirth: formattedDate });
 
@@ -151,8 +159,8 @@ export class StudentRegisterComponent {
       // If an image file is selected, upload it to Cloudinary first
       const formData = new FormData();
       formData.append('file', this.selectedFile);
-      formData.append('upload_preset', 'IT_Scholar'); // Replace with your preset
-      formData.append('folder', 'IT_Scholar'); // Replace with your folder name
+      formData.append('upload_preset', 'IT_Scholar_Student'); // Replace with your preset
+      formData.append('folder', 'IT_Scholar_Student'); // Replace with your folder name
 
       // Upload image to Cloudinary
       axios
@@ -185,28 +193,58 @@ export class StudentRegisterComponent {
   // Separate method to handle saving the student
   private saveStudent(studentData: any): void {
     if (this.isEditMode) {
-
-      this.studentService
-        .updateStudent(this.studentId!, studentData)
-        .subscribe({
-          next: () => {
-            alert('Student updated successfully!');
-            this.closeModal(); // Close the modal after update
-            this.router.navigate(['/students']);
-          },
-          error: (err) => console.error('Error updating student:', err),
-        });
+      this.studentService.updateStudent(this.studentId!, studentData).subscribe({
+        next: () => {
+          // Show success notification
+          this.snackBar.open('Student updated successfully!', 'Close', {
+            duration: 3000, // Duration in milliseconds
+            horizontalPosition: 'right', // Horizontal alignment
+            verticalPosition: 'top', // Vertical alignment
+            panelClass: ['success-snackbar'], // Custom class for success styling
+          });
+          this.closeModal(); // Close the modal after update
+          this.router.navigate(['/students']); // Navigate to the student list
+        },
+        error: (err) => {
+          console.error('Error updating student:', err);
+  
+          // Show error notification
+          this.snackBar.open('Failed to update student. Please try again.', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['error-snackbar'], // Custom class for error styling
+          });
+        },
+      });
     } else {
       this.studentService.addStudent(studentData).subscribe({
         next: () => {
-          alert('Student added successfully!');
+          // Show success notification
+          this.snackBar.open('Student added successfully!', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['success-snackbar'],
+          });
           this.closeModal(); // Close the modal after add
-          this.router.navigate(['/students']);
+          this.router.navigate(['/students']); // Navigate to the student list
         },
-        error: (err) => console.error('Error adding student:', err),
+        error: (err) => {
+          console.error('Error adding student:', err);
+  
+          // Show error notification
+          this.snackBar.open('Failed to add student. Please try again.', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['error-snackbar'],
+          });
+        },
       });
     }
   }
+  
 
   // Handle file selection
   onFileChange(event: any): void {

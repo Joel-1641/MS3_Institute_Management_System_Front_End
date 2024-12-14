@@ -1,0 +1,55 @@
+<div class="container--fluid heading " style="background-color: rgba(255, 255, 0, 0.103);">
+    <h6 class="text-center  pt-5 ">Add Courses</h6>
+    <div class="row p-5">
+      <!-- Dynamic Course Cards -->
+      <div class="col-md-3" *ngFor="let course of selectedCourses">
+        <div class="card text-center p-3">
+          <h6>{{ course.name }}</h6>
+          <button class="btn btn-danger btn-sm mt-2" (click)="removeCourse(course.id)">Remove</button>
+        </div>
+      </div>
+  
+      <!-- Add Course Button -->
+       <div class="col-md-1"></div>
+      <div class="col-md-2">
+        <div
+          class="add-course-card d-flex flex-column justify-content-center align-items-center"
+          data-bs-toggle="modal"
+          data-bs-target="#courseModal"
+        >
+          <h4>+</h4>
+          <p>Add More Courses</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal for Course Selection -->
+    <div
+      class="modal fade"
+      id="courseModal"
+      tabindex="-1"
+      aria-labelledby="courseModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title" id="courseModalLabel">Select a Course</h6>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 mb-3" *ngFor="let course of courses">
+                <div class="card p-3">
+                    <img [src]="course.image" class="card-img-top" [alt]="course.name" />
+                  <h6>{{ course.name }}</h6>
+                  <button class="btn btn-primary btn-sm" (click)="addCourse(course)" data-bs-dismiss="modal">Select</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -5,12 +5,12 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Pipes } from '../../pipes/search-filter.pipe';
 import { NgxPaginationModule} from 'ngx-pagination';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';  
+import { MatSnackBar} from '@angular/material/snack-bar';  
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, NgxPaginationModule, Pipes, MatSnackBarModule],
+  imports: [CommonModule, RouterLink, FormsModule, NgxPaginationModule, Pipes],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css',
 })
@@ -45,12 +45,12 @@ fetchCourses(): void {
       this.isLoading = false;
 
       // Show success snackbar once the courses are loaded
-      this.snackBar.open('Courses loaded successfully!', 'Close', {
-        duration: 3000, // Duration in milliseconds
-        horizontalPosition: 'right', // Position on the horizontal axis
-        verticalPosition: 'top', // Position on the vertical axis
-        panelClass: ['custom-snackbar'], // Optional: add a custom class for success styling
-      });
+      // this.snackBar.open('Courses loaded successfully!', 'Close', {
+      //   duration: 3000, // Duration in milliseconds
+      //   horizontalPosition: 'right', // Position on the horizontal axis
+      //   verticalPosition: 'top', // Position on the vertical axis
+      //   panelClass: ['custom-snackbar'], // Optional: add a custom class for success styling
+      // });
     },
     error: (error) => {
       this.errorMessage = 'Failed to load courses. Please try again later.';

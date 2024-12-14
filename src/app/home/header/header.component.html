@@ -1,28 +1,40 @@
-<header class="header-area  header-sticky">
-  <div class="container ">
+<header class="header-area header-sticky">
+  <div class="container">
     <div class="row">
       <div class="col-12">
-        <nav class="main-nav ">
+        <nav class="main-nav">
           <div class="logo">
             <h1>IT~SCHOLAR</h1>
           </div>
           <ul class="nav">
-            <ul class="nav">
-              <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-              <li class="scroll-to-section"><a href="#services">Services</a></li>
-              <li class="scroll-to-section"><a href="#courses">Courses</a></li>
-              <li class="scroll-to-section"><a href="#team">Team</a></li>
-              <li class="scroll-to-section"><a href="#events">Events</a></li>
-              <li class="scroll-to-section"><a href="#contact">Register Now!</a></li>
+            <ul class="nav" >
+              <li class="scroll-to-section">
+                <a href="#top" style="text-decoration-line: none;" class="active">Home</a>
+              </li>
+              <li class="scroll-to-section" style="text-decoration-line: none;">
+                <a href="#services" style="text-decoration-line: none;">Services</a>
+              </li>
+              <li class="scroll-to-section"><a href="#courses" style="text-decoration-line: none;">Courses</a></li>
+              <li class="scroll-to-section"><a href="#team" style="text-decoration-line: none;">Team</a></li>
+              <li class="scroll-to-section"><a href="#events" style="text-decoration-line: none;">Events</a></li>
+              <li class="scroll-to-section">
+                <a href="#contact" style="text-decoration-line: none;" >Register Now!</a>
+              </li>
+              <button class="btn btn-primary" (click)="openLoginModal()">Login</button>
             </ul>
           </ul>
-
-          <a class='menu-trigger'>
+          <a class="menu-trigger">
             <span>Menu</span>
           </a>
-
         </nav>
       </div>
     </div>
   </div>
 </header>
+
+<!-- Include Login Component as Modal -->
+<app-login
+  *ngIf="showLoginModal"
+  (close)="closeLoginModal()"
+  (authenticated)="onAuthenticated($event)"
+></app-login>

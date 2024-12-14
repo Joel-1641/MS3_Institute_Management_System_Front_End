@@ -8,6 +8,11 @@
   .events .section-heading {
     margin-bottom: 100px;
     }
+
+    .section-heading h6 {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
     
     .events .item {
     background-color: #f1f0fe;

@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { StudentService, Student } from '../../services/student.service';
 import { Pipes } from '../../pipes/search-filter.pipe';
 import { Students } from '../../models/model';
+import { MatSnackBar} from '@angular/material/snack-bar';  
 
 @Component({
   selector: 'app-student',
@@ -37,7 +38,7 @@ export class StudentComponent implements OnInit {
 
   constructor(
     private StudentService: StudentService,
-    private fb: FormBuilder
+    private fb: FormBuilder,private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -78,11 +79,21 @@ export class StudentComponent implements OnInit {
       },
       error: (error) => {
         this.errorMessage = 'Failed to load students. Please try again later.';
-        console.error(error);
+        console.error('Error loading students:', error);
+  
+        // Use MatSnackBar for error notification
+        this.snackBar.open('Failed to load students. Please try again later.', 'Close', {
+          duration: 3000, // Duration in milliseconds
+          horizontalPosition: 'right', // Horizontal alignment
+          verticalPosition: 'top', // Vertical alignment
+          panelClass: ['error-snackbar'], // Custom class for error styling
+        });
+  
         this.isLoading = false;
       },
     });
   }
+  
 
   
   get totalPages(): number {
@@ -103,18 +114,36 @@ export class StudentComponent implements OnInit {
 
   // Delete a student
   deleteStudent(id: number): void {
-    if (confirm('Are you sure you want to delete this student?')) {
+    const confirmDelete = confirm('Are you sure you want to delete this student?');
+    if (confirmDelete) {
       this.StudentService.deleteStudent(id).subscribe({
         next: () => {
-          alert('Student deleted successfully!');
-          this.fetchStudents(); // Refresh the list
+          // Show success notification
+          this.snackBar.open('Student deleted successfully!', 'Close', {
+            duration: 3000, // Duration in milliseconds
+            horizontalPosition: 'right', // Horizontal alignment
+            verticalPosition: 'top', // Vertical alignment
+            panelClass: ['success-snackbar'], // Custom class for success styling
+          });
+  
+          // Refresh the student list
+          this.fetchStudents();
         },
         error: (err) => {
           console.error('Error deleting student:', err);
+  
+          // Show error notification
+          this.snackBar.open('Failed to delete the student. Please try again later.', 'Close', {
+            duration: 3000, // Duration in milliseconds
+            horizontalPosition: 'right', // Horizontal alignment
+            verticalPosition: 'top', // Vertical alignment
+            panelClass: ['error-snackbar'], // Custom class for error styling
+          });
         },
       });
     }
   }
+  
   // Triggered when "Add Student" button is clicked
   onAddStudent() {
     this.isEditMode = false;
@@ -132,17 +161,17 @@ export class StudentComponent implements OnInit {
   // Populate form for "Edit Student"
   populateForm(student: any) {
     this.studentForm.patchValue({
-      fullName: student.fullName,
+      fullName: student.name,
       email: student.email,
       password: '', // Optional: Leave empty or mask
-      nicNumber: student.nicNumber,
-      roleId: student.roleId,
+      nicNumber: student.nic,
+      roleId: student.id,
       dateOfBirth: student.dateOfBirth,
       gender: student.gender,
       address: student.address,
       mobileNumber: student.mobileNumber,
       profilePicture: student.profilePicture,
-      registrationFee: student.registrationFee,
+      registrationFee: student.Fee,
       isRegistrationFeePaid: student.isRegistrationFeePaid,
     });
   }

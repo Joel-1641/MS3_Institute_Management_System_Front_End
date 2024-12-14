@@ -1,89 +1,69 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaymentService } from '../../services/payment.service';
+import bootstrap from 'bootstrap';
+
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,FormsModule],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.css'
 })
 export class PaymentComponent implements OnInit{
-  students: any[] = []; // List of registered students
-  selectedStudent: any = null; // Details of the selected student
-  paymentForm!: FormGroup;
+  paymentDetails: any[] = []; // Holds the payment data fetched from the API
+  paymentData = { nic: '', amount: 0 }; // Data bound to the form
 
-  constructor(private paymentService: PaymentService, private fb: FormBuilder) {}
+  constructor(private paymentService: PaymentService) {}  // Inject PaymentService
 
   ngOnInit(): void {
-    this.loadRegisteredStudents();
-
-    // Initialize the payment form
-    this.paymentForm = this.fb.group({
-      studentId: [''],
-      courseId: [''],
-      amount: [''],
-      paymentStatus: ['Pending'], // Default status
-    });
+    this.fetchPaymentDetails();
   }
 
-  loadRegisteredStudents(): void {
-    this.paymentService.getRegisteredStudents().subscribe((data) => {
-      this.students = data;
-    });
+  // Fetch payment details from the PaymentService
+  fetchPaymentDetails(): void {
+    this.paymentService.getPaymentDetails().subscribe(
+      (data) => {
+        this.paymentDetails = data;
+      },
+      (error) => {
+        console.error('Error fetching payment details:', error);
+      }
+    );
   }
 
-  selectStudent(studentId: string): void {
-    this.paymentService.getStudentDetails(studentId).subscribe((data) => {
-      this.selectedStudent = data;
-    });
+  // Open the payment modal and set NIC for the selected student
+  openPaymentPortal(nic: string): void {
+    this.paymentData.nic = nic;
+    const paymentModal = new bootstrap.Modal(
+      document.getElementById('paymentModal') as HTMLElement
+    );
+    paymentModal.show();
   }
 
-  makePayment(): void {
-    if (this.paymentForm.valid) {
-      const paymentData = this.paymentForm.value;
-      this.paymentService.makePayment(paymentData).subscribe((response) => {
+  // Submit the payment via the PaymentService
+  submitPayment(): void {
+    this.paymentService.submitPayment(this.paymentData).subscribe(
+      (response) => {
         alert('Payment successful!');
-        this.paymentForm.reset();
-        this.selectedStudent = null;
-      });
-    }
+        this.closeModal();
+        this.fetchPaymentDetails(); // Refresh the table after payment is made
+      },
+      (error) => {
+        alert('Payment failed. Please try again.');
+        console.error('Error submitting payment:', error);
+      }
+    );
   }
 
-  getPaymentClass(payment: string): string {
-    switch (payment) {
-      case 'Done':
-        return 'bg-success';
-      case 'Pending':
-        return 'bg-danger';
-      case 'Failed':
-        return 'bg-warning';
-      default:
-        return 'bg-secondary';
-    }
+  // Close the modal
+  private closeModal(): void {
+    const paymentModal = bootstrap.Modal.getInstance(
+      document.getElementById('paymentModal') as HTMLElement
+    );
+    paymentModal?.hide();
   }
-
-  tableData = [
-    {
-      name: 'Robert Fox',
-      date: 'Feb 15, 2021',
-      courceName: 'WEB DEV',
-      amount: 3500,
-      Offer: '15%',
-      Payment: 'Pending',
-      avatar: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80'
-    },
-    {
-      name: 'Robert Fox',
-      date: 'Feb 15, 2021',
-      courceName: 'WEB DEV',
-      amount: 3500,
-      Offer: '15%',
-      Payment: 'Done',
-      avatar: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80'
-    },
-  ];
 
 }

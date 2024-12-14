@@ -6,19 +6,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PaymentService {
-  private baseUrl = 'http://your-api-url/api'; // Replace with your backend URL
+  private apiUrl = 'https://localhost:7147/api/studentcourse'; // Base API URL, change if needed
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getRegisteredStudents(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/students/registered`);
+  // Fetch all payment details
+  getPaymentDetails(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/payment-details`);
   }
 
-  getStudentDetails(studentId: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/students/${studentId}`);
-  }
-
-  makePayment(paymentData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/payments`, paymentData);
+  // Submit payment
+  submitPayment(paymentData: { nic: string; amount: number }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/make-payment`, paymentData);
   }
 }
