@@ -18,7 +18,7 @@ export class StudentService {
 
   // Fetch all students
   getStudents() {
-    return this.http.get<Student[]>('http://localhost:5256/api/Admin/students')
+    return this.http.get<Student[]>(`${this.apiUrl}`)
       // map((data) =>
       //   data.map((item) => ({
       //     Fee: item.registrationFee,
@@ -40,11 +40,11 @@ export class StudentService {
 
   // Fetch a course by ID
   getStudentById(id: number){
-    return this.http.get(`http://localhost:5256/api/Admin/students/${id}`);
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
   // Add a new student
   addStudent(studentData: any): Observable<any> {
-    return this.http.post(`http://localhost:5256/api/Admin/students`, studentData); // Send POST request with student data
+    return this.http.post(`${this.apiUrl}`, studentData); // Send POST request with student data
   }
 
   // Update an existing student
