@@ -16,8 +16,36 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
+  .card h6 {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
   .modal-header h6 {
     font-size: 1.1rem;
     font-weight: bold;
   }
   
+  /* Card Image */
+.card-image img {
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  /* padding: 1rem; */
+  position: relative;
+}
