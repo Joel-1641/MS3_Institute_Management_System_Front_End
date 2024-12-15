@@ -4,8 +4,8 @@
       <!-- Dynamic Course Cards -->
       <div class="col-md-3" *ngFor="let course of selectedCourses">
         <div class="card text-center p-3">
-          <h6>{{ course.name }}</h6>
-          <button class="btn btn-danger btn-sm mt-2" (click)="removeCourse(course.id)">Remove</button>
+          <h6>{{ course.courseName }}</h6>
+          <!-- <button class="btn btn-danger btn-sm mt-2" (click)="removeCourse(course.id)">Remove</button> -->
         </div>
       </div>
   
@@ -41,8 +41,9 @@
             <div class="row">
               <div class="col-md-6 mb-3" *ngFor="let course of courses">
                 <div class="card p-3">
-                    <img [src]="course.image" class="card-img-top" [alt]="course.name" />
-                  <h6>{{ course.name }}</h6>
+                    <img [src]="course.courseImg" class="card-img-top" [alt]="course.name" />
+                  <h6>{{ course.courseName }}</h6>
+                  <h5>{{course.level}}</h5>
                   <button class="btn btn-primary btn-sm" (click)="addCourse(course)" data-bs-dismiss="modal">Select</button>
                 </div>
               </div>

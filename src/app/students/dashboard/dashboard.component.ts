@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { StudentApiResponse, StudentService } from '../../services/student.service';
+import { CourseService } from '../../services/course.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,11 +33,13 @@ export class DashboardComponent {
 
 username: any;
 studentsss:any
+  selectedCourses: any[]=[];
 
-  constructor(private http: HttpClient,private studentservice:StudentService) {}
+  constructor(private http: HttpClient,private studentservice:StudentService,private courseservice:CourseService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getstudent(this.studentid)
+    this.getstudentcourse(this.studentid)
   }
 
   getstudent(studentid: number){
@@ -78,7 +81,11 @@ studentsss:any
       });
     }
   }
-
+  getstudentcourse(id:number){
+    this.courseservice.getstudentcourse(id).subscribe(data=>{
+      this.selectedCourses= data
+    })
+    }
   // Function to update password
   updatePassword(passwordForm: NgForm) {
     if (this.newPassword.length < 8) {

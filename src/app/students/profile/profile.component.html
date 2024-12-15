@@ -5,13 +5,13 @@
         <div class="card p-3">
           <div class="d-flex align-items-center">
             <img
-              [src]="student.photoUrl || 'https://via.placeholder.com/100'"
+              [src]="student.photoUrl || 'https://th.bing.com/th/id/OIP.jbnncrDk7xpWzM9r_FfESwHaHa?w=175&h=180&c=7&r=0&o=5&pid=1.7'"
               class="rounded-circle me-3"
               alt="Profile Photo"
               width="100"
               height="100"
             />
-            <div>
+                        <div>
               <h5>
                 Hello,
                 <span id="student-name">{{ student.name || "Loading..." }}</span
@@ -19,6 +19,7 @@
               </h5>
               <p class="text-muted">Welcome back to your dashboard.</p>
             </div>
+            <img src="user-img-pic-latest.svg" alt="">
           </div>
         </div>
       </div>
