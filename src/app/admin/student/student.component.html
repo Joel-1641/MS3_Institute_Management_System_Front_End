@@ -78,13 +78,14 @@
         <td>
           <button
             class="btn btn-sm btn-square btn-neutral"
-            [routerLink]="['/admin/students/edit', student.id]"
+            [routerLink]="['/admin/students/edit', student.studentId]"
+            
           >
             <i class="bi bi-pencil-square text-primary" title="Edit"></i>
           </button>
           <button
             class="btn btn-sm btn-square btn-neutral ms-3"
-            (click)="deleteStudent(student.id)"
+            (click)="deleteStudent(student.studentId)"
           >
             <i class="bi bi-trash text-danger" title="Delete"></i>
           </button>

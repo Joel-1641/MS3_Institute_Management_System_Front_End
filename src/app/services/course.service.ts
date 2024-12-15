@@ -7,25 +7,12 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CourseService {
-  private apiUrl = 'https://localhost:5256/api/Admin/courses'; // Replace with your API URL
+  private apiUrl = 'http://localhost:5256/api/Admin/courses'; // Replace with your API URL
 
   constructor(private http: HttpClient) {}
 
-  getCourses(): Observable<Course[]> {
-    return this.http.get<CourseApiResponse[]>(this.apiUrl).pipe(
-      map((data) =>
-        data.map((item) => ({
-          id: item.courseId,
-          name: item.courseName,
-          level: item.level,
-          fee: item.courseFee,
-          description: item.description,
-          // image: 'https://via.placeholder.com/300x150?text=' + item.courseName,// Placeholder image
-          image: item.courseImg,// Placeholder image
-          category:item.courseType
-        }))
-      )
-    );
+  getCourses(){
+    return this.http.get<CourseApiResponse[]>('http://localhost:5256/api/Admin/courses')
   }
 
   // Fetch a course by ID
@@ -44,8 +31,8 @@ export class CourseService {
   }
 
   // Delete a course by ID
-  deleteCourse(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  deleteCourse(id: number){
+    return this.http.delete(`http://localhost:5256/api/Admin/courses/${id}`);
   }
 }
 
@@ -61,11 +48,12 @@ export interface CourseApiResponse {
 }
 
 export interface Course {
-  id: number;
-  name: string;
+  courseId: number;
+  courseName: string;
   level: string;
-  fee: number;
+  courseFee: number;
+  courseDuration : string;
+  courseImg : string;
   description: string;
-  image: string;
-  category: string
+  courseType : string
 }

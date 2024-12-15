@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import * as bootstrap from 'bootstrap';
 import axios from 'axios';
-import { StudentService } from '../../services/student.service';
+import { Student, StudentApiResponse, StudentService } from '../../services/student.service';
 import { Pipes } from '../../pipes/search-filter.pipe';
 import { MatSnackBar} from '@angular/material/snack-bar';  
 
@@ -31,6 +31,7 @@ export class StudentRegisterComponent {
   modalInstance: bootstrap.Modal | null = null;
   fileInputError: string = '';
   modalVisible: boolean = false; // Control modal visibility
+  students:Student[]=[] ;
 
   constructor(
     private fb: FormBuilder,
@@ -103,7 +104,8 @@ export class StudentRegisterComponent {
   private loadStudentDetails(id: number): void {
     this.studentService.getStudentById(id).subscribe({
       next: (student) => {
-        this.studentForm.patchValue(student); // Populate form with student details
+        this.studentForm.patchValue(student); 
+        console.log('student patch value:',student)// Populate form with student details
       },
       error: (err) => {
         console.error('Error fetching student details:', err);
@@ -187,8 +189,17 @@ export class StudentRegisterComponent {
       // If no image is selected, proceed with existing data
       this.saveStudent(studentData);
       this.router.navigate(['/admin/students']);
+      this.loadstudent()
+    
     }
   }
+loadstudent(){
+  this.studentService.getStudents().subscribe(
+    (data) => (this.students = data),
+    (error) => console.error('Error loading students:', error)
+  );
+}
+
 
   // Separate method to handle saving the student
   private saveStudent(studentData: any): void {
