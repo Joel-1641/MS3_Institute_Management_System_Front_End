@@ -9,7 +9,7 @@ import { StudentComponent } from './admin/student/student.component';
 import { CoursesComponent } from './admin/courses/courses.component';
 import { StudentRegisterComponent } from './admin/student-register/student-register.component';
 import { CourseEditComponent } from './admin/course-edit/course-edit.component';
-import { PaymentComponent } from './admin/payment/payment.component';
+
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,7 +30,7 @@ export const routes: Routes = [
       { path: 'courses/edit/:id', component: CourseEditComponent },
 
       // { path: 'payment', component: PaymentComponent },
-      { path: 'Account', component: HomeComponent },
+      // { path: 'Account', component: HomeComponent },
       { path: 'logout', component: HomeComponent },
     ],
   },

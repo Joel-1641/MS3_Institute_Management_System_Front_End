@@ -34,6 +34,14 @@ export class CourseService {
   deleteCourse(id: number){
     return this.http.delete(`http://localhost:5256/api/Admin/courses/${id}`);
   }
+
+  addstudentcourse(request:any){
+    return this.http.post('http://localhost:5256/api/StudentCourse/add-courses',request)
+  }
+getstudentcourse(id:number){
+  return this.http.get<any[]>(`http://localhost:5256/api/StudentCourse/student/${id}/courses`)
+}
+
 }
 
 export interface CourseApiResponse {
