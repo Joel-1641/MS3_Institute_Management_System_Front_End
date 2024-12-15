@@ -46,30 +46,6 @@ export class StudentComponent implements OnInit {
     // this.initializeForm();
   }
 
-  // Initialize form for both add and edit modes
-  // initializeForm() {
-  //   this.studentForm = this.fb.group({
-  //     fullName: ['', [Validators.required, Validators.minLength(3)]],
-  //     email: ['', [Validators.required, Validators.email]],
-  //     password: ['', [Validators.required, Validators.minLength(6)]],
-  //     nicNumber: [
-  //       '',
-  //       [Validators.required, Validators.pattern(/^\d{9}[VvXx]$/)],
-  //     ],
-  //     roleId: [2], // Default role ID
-  //     dateOfBirth: ['', Validators.required],
-  //     gender: ['', Validators.required],
-  //     address: ['', [Validators.required, Validators.minLength(5)]],
-  //     mobileNumber: [
-  //       '',
-  //       [Validators.required, Validators.pattern(/^[1-9]{1}[0-9]{8}$/)],
-  //     ],
-  //     profilePicture: [''],
-  //     registrationFee: [0, Validators.required],
-  //     isRegistrationFeePaid: [false, Validators.required],
-  //   });
-  // }
-
   // Fetch students from the backend
   fetchStudents() {
     this.StudentService.getStudents().subscribe({
