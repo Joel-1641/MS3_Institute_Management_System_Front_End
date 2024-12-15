@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Student } from '../services/student.service';
 import { Course } from '../services/course.service';
+import { studentpayment } from '../admin/payment-table/payment-table.component';
 
 @Pipe({
   name: 'searchCourse',

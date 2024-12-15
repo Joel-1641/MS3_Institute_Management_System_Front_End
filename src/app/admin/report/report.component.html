@@ -1,0 +1,83 @@
+<div class="container my-5">
+    <!-- NIC Input Section -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <label for="nic" class="form-label">Enter Student NIC</label>
+        <input
+          type="text"
+          id="nic"
+          class="form-control"
+          [(ngModel)]="nic" 
+          placeholder="Enter NIC"
+        />
+      </div>
+      <div class="col-md-6">
+        <button
+          class="btn btn-primary mt-4"
+          (click)="fetchReport()"
+          [disabled]="isLoading"
+        >
+          {{ isLoading ? 'Loading...' : 'Get Report' }}
+        </button>
+
+        <button class="btn btn-secondary m-4" (click)="goadmin()">Back</button>
+      </div>
+    </div>
+  
+ 
+  
+    <!-- Report Section (Shows when reportData is available) -->
+    <div *ngIf="reportDatas">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="card-title">Student Report</h3>
+        </div>
+        <div class="card-body">
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <h5><strong>Student Information</strong></h5>
+              <p><strong>Name:</strong> {{ reportDatas.studentName }}</p>
+              <p><strong>NIC:</strong> {{ reportDatas.nic }}</p>
+            </div>
+            <div class="col-md-6">
+              <h5><strong>Payment Details</strong></h5>
+              <p><strong>Total Fee:</strong> {{ reportDatas.paymentDetails.totalFee }}</p>
+              <p><strong>Total Paid:</strong> {{ reportDatas.paymentDetails.totalPaid }}</p>
+              <p><strong>Payment Due:</strong> {{ reportDatas.paymentDetails.paymentDue  }}</p>
+              <p><strong>Status:</strong> {{ reportDatas.paymentDetails.paymentStatus }}</p>
+            </div>
+          </div>
+  
+          <h5><strong>Courses Enrolled</strong></h5>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Course Name</th>
+                <th>Level</th>
+                <th>Fee</th>
+                <th>Duration</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of reportDatas.courses">
+                <td>{{ course.courseName }}</td>
+                <td>{{ course.level }}</td>
+                <td>{{ course.courseFee  }}</td>
+                <td>{{ course.courseDuration }}</td>
+                <td>{{ course.courseType }}</td>
+              </tr>
+            </tbody>
+          </table>
+  
+          <!-- Print Button -->
+          <div class="d-flex justify-content-end mt-4">
+            <button class="btn btn-success" (click)="printReport()">
+              <i class="bi bi-printer"></i> Print Report
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

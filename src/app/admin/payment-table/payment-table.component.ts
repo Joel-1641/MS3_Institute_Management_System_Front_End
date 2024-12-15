@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {
   FormBuilder,
@@ -12,15 +12,18 @@ import { StudentService, Student } from '../../services/student.service';
 import { Pipes } from '../../pipes/search-filter.pipe';
 import { MatSnackBar} from '@angular/material/snack-bar';  
 import { Students } from '../../Models/model';
+import { PaymentService } from '../../services/payment.service';
+import { SearchnicPipe } from '../../pipes/searchnic.pipe';
+import { SearchnamePipe } from '../../pipes/searchname.pipe';
 
 @Component({
   selector: 'app-payment-table',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, NgxPaginationModule, Pipes],
+  imports: [CommonModule, RouterLink, FormsModule, NgxPaginationModule, Pipes,SearchnicPipe,SearchnamePipe],
   templateUrl: './payment-table.component.html',
   styleUrl: './payment-table.component.css'
 })
-export class PaymentTableComponent implements OnInit{
+export class PaymentTableComponent implements OnInit,OnChanges{
 studentForm!: FormGroup; // Declare the studentForm
   isEditMode = false; // Default to "Add Student" mode
   selectedStudent: any = null; // Store student data for edit mode
@@ -34,41 +37,22 @@ studentForm!: FormGroup; // Declare the studentForm
   totalItems: number = 0; // Total number of students
   isLoading: boolean = true; // To show loading indicator
   errorMessage: string = ''; // For error handling
+  studentpayment:studentpayment[]=[]
  
 
   constructor(
     private StudentService: StudentService,
-    private fb: FormBuilder,private snackBar: MatSnackBar
+    private fb: FormBuilder,private snackBar: MatSnackBar,private paymentservice:PaymentService
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+  this.fetchpayments()
+  }
 
   ngOnInit(): void {
     this.fetchStudents();
+    this.fetchpayments()
     // this.initializeForm();
   }
-
-  // Initialize form for both add and edit modes
-  // initializeForm() {
-  //   this.studentForm = this.fb.group({
-  //     fullName: ['', [Validators.required, Validators.minLength(3)]],
-  //     email: ['', [Validators.required, Validators.email]],
-  //     password: ['', [Validators.required, Validators.minLength(6)]],
-  //     nicNumber: [
-  //       '',
-  //       [Validators.required, Validators.pattern(/^\d{9}[VvXx]$/)],
-  //     ],
-  //     roleId: [2], // Default role ID
-  //     dateOfBirth: ['', Validators.required],
-  //     gender: ['', Validators.required],
-  //     address: ['', [Validators.required, Validators.minLength(5)]],
-  //     mobileNumber: [
-  //       '',
-  //       [Validators.required, Validators.pattern(/^[1-9]{1}[0-9]{8}$/)],
-  //     ],
-  //     profilePicture: [''],
-  //     registrationFee: [0, Validators.required],
-  //     isRegistrationFeePaid: [false, Validators.required],
-  //   });
-  // }
 
   // Fetch students from the backend
   fetchStudents() {
@@ -93,6 +77,14 @@ studentForm!: FormGroup; // Declare the studentForm
         this.isLoading = false;
       },
     });
+  }
+
+
+  fetchpayments(){
+    this.paymentservice.getPaymentDetails().subscribe(data=>{
+      this.studentpayment=data
+      console.log("payment",this.studentpayment)
+    })
   }
   
 
@@ -190,4 +182,16 @@ studentForm!: FormGroup; // Declare the studentForm
       console.log('Form is invalid');
     }
   }
+}
+
+
+
+export interface studentpayment{
+  studentId: number;
+  studentName: string;
+  totalFee: number;
+  totalPaid: number;
+  paymentDue: number;
+  paymentStatus: string;
+  nic: string;
 }
