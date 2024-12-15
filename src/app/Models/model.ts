@@ -33,6 +33,7 @@ export interface Courses{
     courseFee:string;
     courseType:string
     description:string;
+    
 }
 
 export interface ContactUs{

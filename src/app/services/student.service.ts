@@ -18,7 +18,7 @@ export class StudentService {
 
   // Fetch all students
   getStudents() {
-    return this.http.get<Student[]>(`${this.apiUrl}`)
+    return this.http.get<Student[]>('http://localhost:5256/api/Admin/students')
       // map((data) =>
       //   data.map((item) => ({
       //     Fee: item.registrationFee,
@@ -40,21 +40,21 @@ export class StudentService {
 
   // Fetch a course by ID
   getStudentById(id: number){
-    return this.http.get(`${this.apiUrl}/${id}`);
+    return this.http.get(`http://localhost:5256/api/Admin/students/${id}`);
   }
   // Add a new student
   addStudent(studentData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, studentData); // Send POST request with student data
+    return this.http.post(`http://localhost:5256/api/Admin/students`, studentData); // Send POST request with student data
   }
 
   // Update an existing student
-  updateStudent(id: number, student: Student): Observable<Student> {
-    return this.http.put<Student>(`${this.apiUrl}/${id}`, student);
+  updateStudent(id: number, student: Student){
+    return this.http.put(`ttp://localhost:5256/api/Admin/students/${id}`, student);
   }
 
   // Delete a student
-  deleteStudent(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteStudent(id: number) {
+    return this.http.delete(`http://localhost:5256/api/Admin/students/${id}`);
   }
 }
 export interface StudentApiResponse {
@@ -76,7 +76,7 @@ export interface Student {
   Fee: number;
   isRegistrationFeePaid: boolean;
   userId: number;
-  id: number;
+  studentId: number;
   fullName: string;
   email: string;
   profilePicture: string;

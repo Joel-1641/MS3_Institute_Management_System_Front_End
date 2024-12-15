@@ -17,8 +17,8 @@ export class SearchCoursePipe implements PipeTransform {
     // Filter courses by matching title or other fields
     return courses.filter(
       (course) =>
-        course.name.toLowerCase().includes(searchText) ||
-        course.description.toLowerCase().includes(searchText)
+        course.courseName.toLowerCase().includes(searchText.toLocaleLowerCase()) ||
+        course.description.toLowerCase().includes(searchText.toLocaleLowerCase())
     );
   }
 }

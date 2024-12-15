@@ -114,7 +114,8 @@ export class StudentComponent implements OnInit {
   }
 
   // Delete a student
-  deleteStudent(id: number): void {
+  deleteStudent(id: number){
+
     const confirmDelete = confirm('Are you sure you want to delete this student?');
     if (confirmDelete) {
       this.StudentService.deleteStudent(id).subscribe({
@@ -160,21 +161,12 @@ export class StudentComponent implements OnInit {
   }
 
   // Populate form for "Edit Student"
-  populateForm(student: any) {
-    this.studentForm.patchValue({
-      fullName: student.name,
-      email: student.email,
-      password: '', // Optional: Leave empty or mask
-      nicNumber: student.nic,
-      roleId: student.id,
-      dateOfBirth: student.dateOfBirth,
-      gender: student.gender,
-      address: student.address,
-      mobileNumber: student.mobileNumber,
-      profilePicture: student.profilePicture,
-      registrationFee: student.Fee,
-      isRegistrationFeePaid: student.isRegistrationFeePaid,
-    });
+  populateForm(studentId: number) {
+    this.StudentService.getStudentById(studentId).subscribe(data=>{
+      this.studentForm.patchValue(data)
+      console.log('student details:',data)
+
+    })
   }
   // Handle form submission
   onSubmit() {

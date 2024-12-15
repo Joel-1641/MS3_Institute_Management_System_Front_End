@@ -101,7 +101,7 @@ export class CourseEditComponent implements OnInit {
   onClose() {
     this.modalVisible = false;
     this.modalInstance?.hide();
-    this.router.navigate(['/courses']);
+    this.router.navigate(['/admin/courses']);
   }
   onBackdropClick(event: MouseEvent) {
     event.stopPropagation(); 
@@ -132,7 +132,7 @@ export class CourseEditComponent implements OnInit {
       this.modalInstance = null;
     }
     if (shouldNavigate) {
-      this.router.navigate(['/courses']);
+      this.router.navigate(['/admin/courses']);
     }
   }
  
@@ -179,7 +179,7 @@ export class CourseEditComponent implements OnInit {
     } else {
       // If no image is selected, proceed with existing data
       this.saveCourse(courseData);
-      this.router.navigate(['/courses']);
+      this.router.navigate(['/admin/courses']);
     }
   }
 

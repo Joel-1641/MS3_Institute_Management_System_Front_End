@@ -33,7 +33,7 @@
       </div>
 
       <!-- Add Course Button -->
-      <button class="btn btn-light" [routerLink]="['/courses/add']">
+      <button class="btn btn-light" [routerLink]="['/admin/courses/add']">
         <i class="bi bi-plus"></i> Add Course
       </button>
     </div>
@@ -50,29 +50,29 @@
     <!-- Individual Course Card -->
     <div
       class="course-card card shadow-sm col-12 col-md-2"
-      *ngFor="let course of courses | searchCourse : searchText |paginate: currentPage: itemsPerPage"
+      *ngFor="let course of courses | corsefilter : searchText |paginate: currentPage: itemsPerPage"
     >
       <!-- Card Image -->
       <div class="card-image">
-        <img [src]="course.image" class="card-img-top" [alt]="course.name" />
-        <div class="course-price">${{ course.fee }}</div>
+        <img [src]="course.courseImg" class="card-img-top" [alt]="course.name" />
+        <div class="course-price">${{ course.courseFee}}</div>
       </div>
       <!-- Card Body -->
       <div class="card-body text-center">
-        <p class="card-title p-0">{{ course.name }}</p>
+        <p class="card-title p-0">{{ course.courseName }}</p>
         <p class="card-text">
-          {{ course.category }}<br />
-          {{ course.description }}
+          {{ course.courseType }}<br />
+          {{course.level}}
         </p>
         <!-- Overlay Buttons Area -->
         <div class="overlay-buttons">
           <button
             class="btn btn-sm"
-            [routerLink]="['/courses/edit', course.id]"
+            [routerLink]="['/admin/courses/edit', course.courseId]"
           >
             <i class="bi bi-pencil-square text-primary" title="Edit"></i>
           </button>
-          <button (click)="deleteCourse(course.id)">
+          <button (click)="deleteCourse(course.courseId)">
             <i class="bi bi-trash text-danger" title="Delete"></i>
           </button>
         </div>

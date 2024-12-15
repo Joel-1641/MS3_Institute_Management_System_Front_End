@@ -1,16 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { CourseService, Course } from '../../services/course.service';
+import { CourseService, Course, CourseApiResponse } from '../../services/course.service';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Pipes } from '../../pipes/search-filter.pipe';
 import { NgxPaginationModule} from 'ngx-pagination';
-import { MatSnackBar} from '@angular/material/snack-bar';  
+import { MatSnackBar} from '@angular/material/snack-bar';
+import { CorsefilterPipe } from "../../pipes/corsefilter.pipe";  
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, NgxPaginationModule, Pipes],
+  imports: [CommonModule, RouterLink, FormsModule, NgxPaginationModule, Pipes, CorsefilterPipe],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css',
 })
@@ -99,7 +100,7 @@ fetchCourses(): void {
   }
   
   // Delete a course
-deleteCourse(id: number): void {
+deleteCourse(id: number){
   // Show confirmation snackbar
   this.snackBar.open('Are you sure you want to delete this course?', 'Yes', {
     duration: 6000, // Duration for the confirmation snackbar
