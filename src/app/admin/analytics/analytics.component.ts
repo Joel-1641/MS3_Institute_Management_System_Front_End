@@ -38,32 +38,26 @@ export class AnalyticsComponent {
 
   chartOptions = {
 	  title: {
-		  text: "Monthly Sales Data"
+		  text: "Course Details"
 	  },
 	  theme: "light2",
 	  animationEnabled: true,
 	  exportEnabled: true,
 	  axisY: {
 		includeZero: true,
-		valueFormatString: "$#,##0k"
+		valueFormatString: "$#,$0"
 	  },
 	  data: [{
 		type: "column", //change type to bar, line, area, pie, etc
-		yValueFormatString: "$#,##0k",
+		// yValueFormatString: "$#,$0",
 		color: "#01b8aa",
 		dataPoints: [
-			{ label: "Jan", y: 172 },
-			{ label: "Feb", y: 189 },
-			{ label: "Mar", y: 201 },
-			{ label: "Apr", y: 240 },
-			{ label: "May", y: 166 },
-			{ label: "Jun", y: 196 },
-			{ label: "Jul", y: 218 },
-			{ label: "Aug", y: 167 },
-			{ label: "Sep", y: 175 },
-			{ label: "Oct", y: 152 },
-			{ label: "Nov", y: 156 },
-			{ label: "Dec", y: 164 }
+			{ label: "Database Management", y: 3 },
+			{ label: "Security and Networking", y: 5 },
+			{ label: "Web Development", y: 3},
+			{ label: "Data and AI", y: 4 },
+			{ label: "Cloud and DevOps", y: 3},
+			
 		]
 	  }]
 	}

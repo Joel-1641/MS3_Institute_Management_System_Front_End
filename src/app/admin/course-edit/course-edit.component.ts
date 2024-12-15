@@ -197,7 +197,7 @@ export class CourseEditComponent implements OnInit {
           });
   
           this.closeModal(); // Close the modal after update
-          this.router.navigate(['/courses']);
+          this.router.navigate(['/admin/courses']);
         },
         error: (err) => {
           console.error('Error updating course:', err);
@@ -223,7 +223,7 @@ export class CourseEditComponent implements OnInit {
           });
   
           this.closeModal(); // Close the modal after adding
-          this.router.navigate(['/courses']);
+          this.router.navigate(['/admin/courses']);
         },
         error: (err) => {
           console.error('Error adding course:', err);

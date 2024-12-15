@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -29,9 +29,9 @@ export class LoginComponent {
   password: string = '';
 
   adminCredentials = { email: 'admin@example.com', password: 'admin123' };
-  studentCredentials = { email: 'student@example.com', password: 'student123' };
+  studentCredentials = { email: 'michaelb@example.com', password: 'student123' };
 
-  constructor(private renderer: Renderer2,private router:Router) {}
+  constructor(private renderer: Renderer2,private router:Router, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.renderer.addClass(document.body, 'modal-open'); // Lock background
@@ -63,10 +63,13 @@ export class LoginComponent {
       this.router.navigate(['/student-dashboard']);
       console.log('welcom dash board')
     } else {
-      alert('Invalid credentials');
-    }
+      this.snackBar.open('Invalid credentials', 'Close', {
+        duration: 3000,  // SnackBar will disappear after 3 seconds
+        verticalPosition: 'top', // optional, you can position the snackbar vertically
+        horizontalPosition: 'center' // optional, you can position it horizontally
+      });
   }
-
+  }
   // onLogin() {
   //   if (this.email === 'admin@itscholar.com' && this.password === 'admin123') {
   //     // Navigate to Admin Dashboard
