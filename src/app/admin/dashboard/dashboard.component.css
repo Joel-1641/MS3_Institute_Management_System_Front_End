@@ -12,3 +12,9 @@
     margin: 200000px; /* Adjust the gap as needed */
   }
   
+  .card-header h2 {
+    
+        font-size: 1.1rem;
+        font-weight: bold;
+    
+  }

@@ -12,7 +12,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2 class="modal-title">
-          {{ isEditMode ? "Update Student" : "Register Student" }}
         </h2>
         <button
           type="button"
@@ -29,23 +28,14 @@
           <div class="row">
             <!-- Full Name -->
             <div class="col-md-6 mb-3">
-              <label for="fullName" class="form-label fw-bold">Full Name</label>
+              <label for="fullName" class="form-label fw-bold">Full Nic</label>
               <input
                 type="text"
                 id="fullName"
                 class="form-control"
-                formControlName="fullName"
-                placeholder="Enter full name"
+                formControlName="fullNic"
+                placeholder="Enter full NIC"
               />
-              <div
-                *ngIf="
-                  paymentForm.get('fullName')?.invalid &&
-                  paymentForm.get('fullName')?.touched
-                "
-                class="text-danger mt-1"
-              >
-                Full Name is required (min 3 characters).
-              </div>
             </div>
 
             <!-- Registration Fee -->
@@ -60,30 +50,9 @@
                 formControlName="registrationFee"
                 placeholder="Enter registration fee"
               />
-              <div
-                *ngIf="
-                  paymentForm.get('registrationFee')?.invalid &&
-                  paymentForm.get('registrationFee')?.touched
-                "
-                class="text-danger mt-1"
-              >
-                Registration Fee is required (must be a positive number).
-              </div>
+            
             </div>
           </div>
-        </div>
-
-        <div
-          *ngIf="
-            paymentForm.get('isRegistrationFeePaid')?.invalid &&
-            paymentForm.get('isRegistrationFeePaid')?.touched
-          "
-          class="text-danger mt-2"
-        >
-          <small
-            ><i class="bi bi-exclamation-circle-fill me-1"></i> You must have
-            paid the registration fee.</small
-          >
         </div>
 
         <div class="modal-footer">
@@ -91,14 +60,13 @@
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
-            (click)="onClose()"
+            (click)="goback()"
           >
             Close
           </button>
           <button
             type="submit"
             class="btn btn-primary"
-            [disabled]="paymentForm.invalid"
           >
             Pay
           </button>

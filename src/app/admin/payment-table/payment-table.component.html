@@ -31,7 +31,7 @@
         <!-- Add Course Button -->
         <button
           class="btn btn-light"
-          [routerLink]="['/adminPayment/portal']"
+          [routerLink]="['/admin/portal']"
         >
           <i class="bi bi-plus"></i> Add Payment
         </button>
@@ -44,59 +44,28 @@
     <table class="table table-hover table-nowrap">
       <thead style="text-align: center" class="thead-light">
         <tr>
+          <th scope="col">Student_Id</th>
           <th scope="col">Student Name</th>
           <th scope="col">NIC</th>
           <th scope="col">Total Fee</th>
           <th scope="col">Total Paid</th>
           <th scope="col">Pay Due</th>
           <th scope="col">Payment Status</th>
-          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody style="text-align: left">
         <tr
           *ngFor="
-            let student of stud
-              | searchByNic : searchNic
-              | searchStudent : searchText
-              | paginate : currentPage : itemsPerPage
+            let student of studentpayment | searchnic:searchNic | searchname:searchText
           "
         >
-          <td>
-            <img
-              *ngIf="student.profilePicture"
-              [src]="student.profilePicture"
-              alt="Avatar"
-              class="avatar avatar-sm rounded-circle me-2"
-            />
-            <span *ngIf="!student.profilePicture" class="avatar-placeholder">
-              {{ student.name[0] }}
-            </span>
-            {{ student.fullName | charLimit : 10 }}
-          </td>
-          <td>{{ student.email | charLimit : 15 }}</td>
-          <td>{{ student.nicNumber }}</td>
-          <td>{{ student.gender }}</td>
-          <td>{{ student.mobileNumber }}</td>
-          <td>{{ student.address | charLimit : 15 }}</td>
-          <!-- //<td>{{ student.}}</td> -->
-          <!-- <td>${{ student.registrationFee }}</td>
-              <td>{{ student.isRegistrationFeePaid ? 'Yes' : 'No' }}</td> -->
-          <td>{{ student.dateOfBirth | date : "MMM d, yyyy" }}</td>
-          <td>
-            <button
-              class="btn btn-sm btn-square btn-neutral"
-              [routerLink]="['/admin/Payment/portal', student.id]"
-            >
-              <i class="bi bi-pencil-square text-primary" title="Edit"></i>
-            </button>
-            <button
-              class="btn btn-sm btn-square btn-neutral ms-3"
-              (click)="deleteStudent(student.id)"
-            >
-              <i class="bi bi-trash text-danger" title="Delete"></i>
-            </button>
-          </td>
+        <td>{{student.studentId}}</td>
+          <td>{{ student.studentName}}</td>
+          <td>{{ student.nic }}</td>
+          <td>{{ student.totalFee }}</td>
+          <td>{{ student.totalPaid }}</td>
+          <td>{{ student.paymentDue}}</td>
+          <td>{{ student.paymentStatus}}</td>
         </tr>
       </tbody>
     </table>
@@ -120,31 +89,5 @@
       Next
     </button>
   </div>
-
-  <!-- Modal -->
-  <!-- <app-course-edit></app-course-edit> -->
-
-  <!-- <div class="card shadow border-0 ps-2 m-5">
-        <div class="card-header">
-          <h5 class="mb-0">Course List</h5>
-        </div>
-        <div class="table-responsive">
-          <table class="table table-hover table-nowrap">
-            <thead>
-              <tr style="text-align:center;">
-                <th scope="col">Course Name</th>
-                <th scope="col">Fee</th>
-                <th scope="col">Offer</th>
-              </tr>
-            </thead>
-            <tbody style="text-align:center;">
-              <tr *ngFor="let course of courses">
-                <td>{{ course.name }}</td>
-                <td>${{ course.fee }}</td>
-                <td>{{ course.offer }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div> -->
 </div>
+

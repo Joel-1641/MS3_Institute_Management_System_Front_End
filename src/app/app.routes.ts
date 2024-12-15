@@ -9,6 +9,9 @@ import { StudentComponent } from './admin/student/student.component';
 import { CoursesComponent } from './admin/courses/courses.component';
 import { StudentRegisterComponent } from './admin/student-register/student-register.component';
 import { CourseEditComponent } from './admin/course-edit/course-edit.component';
+import { PaymentTableComponent } from './admin/payment-table/payment-table.component';
+import { PaymentPortalComponent } from './admin/payment-portal/payment-portal.component';
+import { ReportComponent } from './admin/report/report.component';
 
 
 export const routes: Routes = [
@@ -29,7 +32,9 @@ export const routes: Routes = [
       { path: 'courses/add', component: CourseEditComponent },
       { path: 'courses/edit/:id', component: CourseEditComponent },
 
-      // { path: 'payment', component: PaymentComponent },
+      { path: 'payment', component: PaymentTableComponent },
+      {path:'portal',component:PaymentPortalComponent},
+      {path:'report',component:ReportComponent},
       // { path: 'Account', component: HomeComponent },
       { path: 'logout', component: HomeComponent },
     ],
