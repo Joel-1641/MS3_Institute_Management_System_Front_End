@@ -51,3 +51,11 @@
   /* padding: 1rem; */
   position: relative;
 }
+
+.modal-body{
+  width: 600px;
+}
+
+.modal-dialog{
+max-width: 700px;
+}

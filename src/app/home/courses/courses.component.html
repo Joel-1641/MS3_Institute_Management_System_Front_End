@@ -7,19 +7,21 @@
                 </div>
             </div>
         </div>
-        <ul class="event_filter">
+        <!-- <ul class="event_filter">
             <li>
                 <a [class.is_active]="filter === '*'" href="#!" (click)="filterCourses('*')">Show All</a>
             </li>
-        </ul>
+        </ul> -->
 
-  <!-- Search Box -->
+
+        
+  <!-- Search Box
   <input
   type="text"
   [(ngModel)]="searchText"
   placeholder="Search courses"
   class="search-box"
-/>
+/> -->
         <div class="row event_box">
             <div *ngFor="let course of courses | corsefilter:searchText " [ngClass]="course.courseName" class="col-lg-4 col-md-6 align-self-center mb-30 event_outer">
                 <div class="events_item">
