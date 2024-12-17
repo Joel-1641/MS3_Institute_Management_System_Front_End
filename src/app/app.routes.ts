@@ -12,10 +12,13 @@ import { CourseEditComponent } from './admin/course-edit/course-edit.component';
 import { PaymentTableComponent } from './admin/payment-table/payment-table.component';
 import { PaymentPortalComponent } from './admin/payment-portal/payment-portal.component';
 import { ReportComponent } from './admin/report/report.component';
+import { LoginComponent } from './login/login.component';
 
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
+  // { path: 'login', component: LoginComponent },
   {
     path: 'admin',
     component: AdminComponent,
@@ -40,7 +43,7 @@ export const routes: Routes = [
     ],
   },
   // },
-  { path: 'student-dashboard', component: StudentsComponent },
+  { path: 'student-dashboard/:userId', component: StudentsComponent },
 
 ];
 

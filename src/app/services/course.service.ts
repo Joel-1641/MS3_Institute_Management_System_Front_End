@@ -4,15 +4,16 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CourseService {
-  private apiUrl = 'http://localhost:5256/api/Admin/courses'; // Replace with your API URL
+  private apiUrl = 'http://localhost:5256/api/Admin/courses'; 
+  private apiUrl2 = 'http://localhost:5256/api/StudentCourse'; 
 
   constructor(private http: HttpClient) {}
 
-  getCourses(){
-    return this.http.get<CourseApiResponse[]>('http://localhost:5256/api/Admin/courses')
+  getCourses() {
+    return this.http.get<CourseApiResponse[]>(`${this.apiUrl}`);
   }
 
   // Fetch a course by ID
@@ -31,17 +32,23 @@ export class CourseService {
   }
 
   // Delete a course by ID
-  deleteCourse(id: number){
-    return this.http.delete(`http://localhost:5256/api/Admin/courses/${id}`);
+  deleteCourse(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  addstudentcourse(request:any){
-    return this.http.post('http://localhost:5256/api/StudentCourse/add-courses',request)
-  }
-getstudentcourse(id:number){
-  return this.http.get<any[]>(`http://localhost:5256/api/StudentCourse/student/${id}/courses`)
-}
 
+
+
+
+  
+  addstudentcourse(request: any) {
+    return this.http.post(`${this.apiUrl2}/add-courses`,request);
+  }
+  getstudentcourse(id: number) {
+    return this.http.get<any[]>(
+      `${this.apiUrl2}/student/${id}/courses`
+    );
+  }
 }
 
 export interface CourseApiResponse {
@@ -49,10 +56,10 @@ export interface CourseApiResponse {
   courseName: string;
   level: string;
   courseFee: number;
-  courseDuration : string;
-  courseImg : string;
+  courseDuration: string;
+  courseImg: string;
   description: string;
-  courseType : string
+  courseType: string;
 }
 
 export interface Course {
@@ -60,8 +67,8 @@ export interface Course {
   courseName: string;
   level: string;
   courseFee: number;
-  courseDuration : string;
-  courseImg : string;
+  courseDuration: string;
+  courseImg: string;
   description: string;
-  courseType : string
+  courseType: string;
 }

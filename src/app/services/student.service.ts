@@ -3,22 +3,21 @@ import {
   HttpHeaders,
   provideHttpClient,
 } from '@angular/common/http';
-import { Component, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Students } from '../Models/model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StudentService {
-  private apiUrl = 'https://localhost:5256/api/Admin/students';
+  private apiUrl = 'http://localhost:5256/api/Admin/students';
 
   constructor(private http: HttpClient) {}
 
   // Fetch all students
   getStudents() {
-    return this.http.get<Student[]>('http://localhost:5256/api/Admin/students')
+    return this.http.get<Student[]>(this.apiUrl)
       // map((data) =>
       //   data.map((item) => ({
       //     Fee: item.registrationFee,
@@ -39,22 +38,41 @@ export class StudentService {
   }
 
   // Fetch a course by ID
-  getStudentById(id: number){
-    return this.http.get(`http://localhost:5256/api/Admin/students/${id}`);
-  }
+ getStudentById(id: number): Observable<Student> {
+    return this.http.get<Student>(`${this.apiUrl}/${id}`).pipe(
+      map((data) => {
+        // The API response already matches the Student interface, so you can return the data directly
+        return {
+          Fee: data.Fee,
+          isRegistrationFeePaid: data.isRegistrationFeePaid,
+          userId: data.userId,
+          studentId: data.studentId,
+          fullName: data.fullName,
+          email: data.email,
+          profilePicture: data.profilePicture,
+          nicNumber: data.nicNumber,  // Ensure nicNumber is correctly mapped
+          gender: data.gender,
+          address: data.address,
+          mobileNumber: data.mobileNumber,
+          dateOfBirth: data.dateOfBirth,
+        };
+      })
+    );
+    }
+    
   // Add a new student
   addStudent(studentData: any): Observable<any> {
-    return this.http.post(`http://localhost:5256/api/Admin/students`, studentData); // Send POST request with student data
+    return this.http.post(`${this.apiUrl}`, studentData); // Send POST request with student data
   }
 
   // Update an existing student
   updateStudent(id: number, student: Student){
-    return this.http.put(`ttp://localhost:5256/api/Admin/students/${id}`, student);
+    return this.http.put(`${this.apiUrl}/${id}`, student);
   }
 
   // Delete a student
   deleteStudent(id: number) {
-    return this.http.delete(`http://localhost:5256/api/Admin/students/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
 export interface StudentApiResponse {
@@ -85,4 +103,5 @@ export interface Student {
   address: string;
   mobileNumber: number;
   dateOfBirth: string;
+
 }
