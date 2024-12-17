@@ -12,3 +12,20 @@
     border: 3px solid #DC5F00;
   }
   
+  .fixed-circle {
+    width: 100px; /* Fixed width */
+    height: 100px; /* Fixed height */
+    border-radius: 50%; /* Makes it a circle */
+    overflow: hidden; /* Ensures the image doesn't overflow the circle */
+    display: flex; /* Ensures alignment of the image inside */
+    align-items: center; /* Centers the image vertically */
+    justify-content: center; /* Centers the image horizontally */
+    border: 2px solid #ccc; /* Optional border for styling */
+  }
+  
+  .fixed-circle img {
+    width: 100%; /* Make the image cover the container */
+    height: 100%; /* Make the image cover the container */
+    object-fit: cover; /* Ensures the image covers the circle without distortion */
+  }
+  

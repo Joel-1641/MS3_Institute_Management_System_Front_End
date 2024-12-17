@@ -4,18 +4,18 @@
     <!-- Profile Card (Taller than others) -->
     <div class="col-md-4">
       <div class="card profile-card p-2">
-        <div  class="d-flex align-items-center m-4">
-          <img 
-          [src]="studentsss?.profilePicture || 'https://via.placeholder.com/150'" 
-          class="rounded-circle me-3" 
-          alt="Profile Photo" 
-          width="150" 
-          height="150"/>
+        <div class="d-flex align-items-center m-4">
+          <img
+            [src]="student?.profilePicture || 'https://via.placeholder.com/150'"
+            class="fixed-circle me-3"
+            alt="Profile Photo"
+          />
           <div>
-            <h1 *ngIf="studentsss">
-              Hello, <span>{{studentsss.fullName}}</span>!
+            <h1 *ngIf="student">
+              Hello, <span>{{ student.fullName }}</span
+              >!
             </h1>
-            <p class="text-muted">Welcome back to your dashboard!</p>
+            <p class="text-muted">Welcome back to ITScholar!!</p>
           </div>
         </div>
       </div>
@@ -45,7 +45,9 @@
     <div class="col-md-2">
       <div class="card other-card p-3 text-center">
         <h6>Total Courses Following</h6>
-        <p class="text-muted mb-2"><strong>{{selectedCourses.length}}</strong> course(s) in progress</p>
+        <p class="text-muted mb-2">
+          <strong>{{ selectedCourses.length }}</strong> course(s) in progress
+        </p>
         <h6>Days Left:</h6>
         <p class="text-muted">15 days remaining</p>
       </div>

@@ -2,8 +2,9 @@ import { CommonModule, NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { StudentApiResponse, StudentService } from '../../services/student.service';
+import { StudentService } from '../../services/student.service';
 import { CourseService } from '../../services/course.service';
+import { MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,10 +15,11 @@ import { CourseService } from '../../services/course.service';
 })
 export class DashboardComponent {
   student: any = {
-    name: '',
-    phone: '',
+    fullName: '',
+    mobileNumber: '',
     address: '',
-    photoUrl: '',
+    profilePicture: '',
+    nicNumber: '',
     courses: [],
   };
   oldPassword: string = '';
@@ -29,23 +31,23 @@ export class DashboardComponent {
     paid: 0,
     due: 0,
   };
-  studentid:number=3;
+  studentId: number =  Number(localStorage.getItem('UserId')); // Dynamically set this value.
 
 username: any;
 studentsss:any
   selectedCourses: any[]=[];
 
-  constructor(private http: HttpClient,private studentservice:StudentService,private courseservice:CourseService) {}
+  constructor(private http: HttpClient,private studentservice:StudentService,private courseservice:CourseService,private snackBar: MatSnackBar) {}
 
   ngOnInit() {
-    this.getstudent(this.studentid)
-    this.getstudentcourse(this.studentid)
+    this.getstudent(this.studentId)
+    this.getstudentcourse(this.studentId)
   }
 
-  getstudent(studentid: number){
-    this.studentservice.getStudentById(studentid).subscribe(data=>{
-      this.studentsss = data
- console.log(this.studentsss)
+  getstudent(studentId: number){
+    this.studentservice.getStudentById(studentId).subscribe(data=>{
+      this.student = data
+ console.log(this.student)
     })
   }
 
@@ -74,8 +76,13 @@ studentsss:any
 // Function to update profile
   updateProfile(profileForm: NgForm) {
     if (profileForm.valid) {
-      this.http.put('API_URL_TO_UPDATE_PROFILE', this.student).subscribe(response => {
-        alert('Profile updated successfully!');
+      this.http.put(`http://localhost:5256/api/Admin/students/${this.studentId}`, this.student).subscribe(response => {
+        this.snackBar.open('Profile updated successfully!', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['success-snackbar'],
+        });
       }, error => {
         console.error('Error updating profile', error);
       });

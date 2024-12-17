@@ -353,7 +353,7 @@ export class CourseEditComponent implements OnInit {
   //   }
   // }
 
-  // Upload image to Cloudinary
+  // //Upload image to Cloudinary
   //   private async uploadToCloudinary(file: File): Promise<string> {
   //     const url = `https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload`;
   //     const formData = new FormData();

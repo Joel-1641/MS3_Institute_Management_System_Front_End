@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 
 declare var bootstrap: any;
@@ -14,11 +15,17 @@ declare var bootstrap: any;
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-  student: any = {};
-  studentId: number = 1; // Example student ID, dynamically set this value.
+  student: any = {
+    name: '',
+    phone: '',
+    address: '',
+    photoUrl: '',
+    courses: [],
+  };
+  studentId: number =  Number(localStorage.getItem('UserId')); // Dynamically set this value.
 
-  constructor(private studentService: StudentService) {}
-
+  constructor(private studentService: StudentService,private authService: AuthService ) {}
+  
   ngOnInit(): void {
     this.fetchStudentData();
   }
