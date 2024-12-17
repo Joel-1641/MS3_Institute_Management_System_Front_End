@@ -52,7 +52,7 @@ export class LoginComponent {
 
 // Handle form submission
 onSubmit(): void {
-  const adminCredentials = { email: 'admin@example.com', password: 'admin123' };
+  const adminCredentials = { email: 'admin@itscholar.com', password: 'admin123' };
 
   // Check if email and password are provided
   if (this.email && this.password) {
