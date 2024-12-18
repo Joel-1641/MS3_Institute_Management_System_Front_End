@@ -5,6 +5,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { StudentService } from '../../services/student.service';
 import { CourseService } from '../../services/course.service';
 import { MatSnackBar} from '@angular/material/snack-bar';
+import { PaymentService, PaymentStatus } from '../../services/payment.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,30 +28,64 @@ export class DashboardComponent {
   confirmPassword: string = '';
   passwordError: boolean = false;
 
-  feeDetails: any = {
-    paid: 0,
-    due: 0,
-  };
+  paymentDetails:PaymentStatus
+    | null = null;
+  nic: string = ''; // Replace with the NIC of the student
+
   studentId: number =  Number(localStorage.getItem('UserId')); // Dynamically set this value.
 
 username: any;
 studentsss:any
   selectedCourses: any[]=[];
 
-  constructor(private http: HttpClient,private studentservice:StudentService,private courseservice:CourseService,private snackBar: MatSnackBar) {}
+  constructor(private http: HttpClient,private studentservice:StudentService,private courseservice:CourseService,private snackBar: MatSnackBar,private paymentservice: PaymentService ) {}
 
   ngOnInit() {
-    this.getstudent(this.studentId)
-    this.getstudentcourse(this.studentId)
+    // this.getstudent(this.studentId);
+    this.fetchStudentData();
+    this.getstudentcourse(this.studentId);
+    this.loadPaymentDetails();
   }
 
-  getstudent(studentId: number){
-    this.studentservice.getStudentById(studentId).subscribe(data=>{
-      this.student = data
- console.log(this.student)
-    })
+//   getstudent(studentId: number){
+//     this.studentservice.getStudentById(studentId).subscribe(data=>{
+//       this.student = data
+//  console.log(this.student)
+//     })
+//   }
+
+
+  // Fetch student data and extract the NIC number
+  fetchStudentData(): void {
+        this.studentservice.getStudentById(this.studentId).subscribe(
+      (data) => {
+        this.student = data; // Store the student data
+        this.nic = data.nicNumber; // Extract the NIC number from the response
+        console.log('Student NIC:', this.nic);
+       
+      },
+      (error) => {
+        console.error('Error fetching student data:', error);
+        this.snackBar.open('Failed to fetch student data', 'Close', { duration: 3000 });
+    
+      }
+    );
   }
 
+
+  loadPaymentDetails(): void {
+    if (this.nic) {
+      this.paymentservice.getPaymentStatus(this.nic).subscribe({
+        next: (data) => {
+          this.paymentDetails = data;
+          console.log(this.paymentDetails)
+        },
+        error: (err) => {
+          console.error('Error fetching payment details:', err);
+        }
+      });
+    }
+  }
   // fetchStudentData(): void {
   //   this.http.get('/api/student').subscribe((data: any) => {
   //     this.student = data;

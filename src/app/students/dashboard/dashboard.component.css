@@ -49,6 +49,90 @@
     object-fit: cover; /* Ensures the image covers the circle without distortion */
   }
 
+
+
+  .dashboard-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .payment-details-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .payment-details-card h4 {
+    margin-bottom: 10px;
+  }
+  
+  .payment-details-card ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .payment-details-card li {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .payment-details-card .bg-success {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .payment-details-card .bg-danger {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .text-success {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .text-danger {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .text-warning {
+    color: orange;
+    font-weight: bold;
+  }
+  
+  .text-secondary {
+    color: gray;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   @media (max-width: 768px) {
     .card {

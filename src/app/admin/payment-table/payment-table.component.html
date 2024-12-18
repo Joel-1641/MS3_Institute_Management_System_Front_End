@@ -10,7 +10,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Search students..."
+            placeholder="Students..."
             [(ngModel)]="searchText"
           />
           <span class="input-group-text">
@@ -21,7 +21,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Search NIC Number..."
+            placeholder="NIC Number..."
             [(ngModel)]="searchNic"
           />
           <span class="input-group-text">
@@ -46,11 +46,11 @@
         <tr>
           <th scope="col">Student_Id</th>
           <th scope="col">Student Name</th>
-          <th scope="col">NIC</th>
+          <th scope="col" style="text-align:center">NIC</th>
           <th scope="col">Total Fee</th>
-          <th scope="col">Total Paid</th>
+          <th scope="col" style="text-align:center">Total Paid</th>
           <th scope="col">Pay Due</th>
-          <th scope="col">Payment Status</th>
+          <th scope="col" style="text-align:center">Payment Status</th>
         </tr>
       </thead>
       <tbody style="text-align: left">
@@ -65,7 +65,9 @@
           <td>{{ student.totalFee }}</td>
           <td>{{ student.totalPaid }}</td>
           <td>{{ student.paymentDue}}</td>
-          <td>{{ student.paymentStatus}}</td>
+          <span class="badge" [ngClass]="getPaymentClass(student.paymentStatus)">
+            {{ student.paymentStatus}}
+          </span>
         </tr>
       </tbody>
     </table>

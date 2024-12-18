@@ -79,7 +79,7 @@ export class PaymentPortalComponent {
   onClose() {
     this.modalVisible = false;
     this.modalInstance?.hide();
-    this.router.navigate(['/students']);
+    this.router.navigate(['/payment']);
   }
   onBackdropClick(event: MouseEvent) {
     event.stopPropagation();

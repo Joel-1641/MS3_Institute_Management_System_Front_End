@@ -1,3 +1,10 @@
+@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+/* Bootstrap Icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+
+
 .custom-navbar {
     background-color: rgba(0, 51, 102, 0.8); /* Dark blue with transparency */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */

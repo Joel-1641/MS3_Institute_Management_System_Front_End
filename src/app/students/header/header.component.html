@@ -29,9 +29,9 @@
         <!-- Loop through notifications and display each one -->
         <ul class="list-group">
           <li *ngFor="let notification of notifications" class="list-group-item">
-            <strong>{{ notification.notificationType }}</strong>
+            <!-- <strong>{{ notification.notificationType }}</strong> -->
             <p>{{ notification.message }}</p>
-            <small class="text-muted">Received on: {{ notification.createdAt | date:'short' }}</small>
+            <!-- <small class="text-muted">Received on: {{ notification.createdAt | date:'short' }}</small> -->
           </li>
         </ul>
       </div>
