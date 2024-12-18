@@ -56,8 +56,10 @@
       <div class="card other-card p-3 text-center">
         <h6>Fee Details</h6>
         <p class="text-muted">
-          <strong>Paid:</strong> $ <br />
-          <strong>Due:</strong> $
+          <strong>Total Amount:</strong> {{ paymentDetails?.totalFee}} <br />
+          <strong>Amount Paid:</strong> {{ paymentDetails?.totalPaid}} <br />
+          <strong>Payment Due:</strong> {{ paymentDetails?.paymentDue}} <br />
+          <!-- <strong>Payment Date:</strong> {{ paymentDetails.totalPaid}} -->
         </p>
       </div>
     </div>

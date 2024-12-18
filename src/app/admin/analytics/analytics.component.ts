@@ -8,7 +8,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
   standalone: true,
   templateUrl: './analytics.component.html',
   styleUrls: ['./analytics.component.css'],
-  imports: [CommonModule, CanvasJSAngularChartsModule]
+  imports: [CommonModule, CanvasJSAngularChartsModule],
 })
 export class AnalyticsComponent {
   // Sample data for Analytics
@@ -21,7 +21,7 @@ export class AnalyticsComponent {
       trendClass: 'bg-soft-success text-success',
       trendIcon: 'bi bi-arrow-up',
       trendValue: '13%',
-      trendText: 'Since last month'
+      trendText: 'Since last month',
     },
     {
       title: 'New Projects',
@@ -31,58 +31,57 @@ export class AnalyticsComponent {
       trendClass: 'bg-soft-success text-success',
       trendIcon: 'bi bi-arrow-up',
       trendValue: '30%',
-      trendText: 'Since last month'
-    }
+      trendText: 'Since last month',
+    },
   ];
-
 
   chartOptions = {
     title: {
-      text: "Course Details",
-      fontFamily: "Arial, sans-serif",
+      text: 'Course Details',
+      fontFamily: 'Arial, sans-serif',
       fontSize: 24,
-      fontWeight: "bold",
-      fontColor: "#4a4a4a",
+      fontWeight: 'bold',
+      fontColor: '#4a4a4a',
       margin: 10,
       padding: 10,
-      backgroundColor: "#f4f4f4",
-      cornerRadius: 5
+      backgroundColor: '#f4f4f4',
+      cornerRadius: 5,
     },
-    theme: "light2",
+    theme: 'light1',
     animationEnabled: true,
     exportEnabled: true,
     axisY: {
       includeZero: true,
-      valueFormatString: "$#,#0",
-      gridColor: "#d9d9d9",
-      labelFontColor: "#606060",
-      lineThickness: 2
+      valueFormatString: '$#,#0',
+      gridColor: '#d9d9d9',
+      labelFontColor: '#606060',
+      lineThickness: 2,
     },
     axisX: {
       labelAngle: -30,
       labelFontSize: 14,
-      labelFontColor: "#606060",
-      lineThickness: 2
+      labelFontColor: '#606060',
+      lineThickness: 2,
     },
     toolTip: {
       shared: true,
-      content: "{label}: {y} Enrolled"
+      content: '{label}: {y} Enrolled',
     },
     data: [
       {
-        type: "column",
+        type: 'column',
         indexLabelFontSize: 14,
-        indexLabel: "{y}",
-        indexLabelPlacement: "outside",
-        color: "#01b8aa",
+        indexLabel: '{y}',
+        indexLabelPlacement: 'outside',
+        color: '#01b8aa', // Primary color for columns
         dataPoints: [
-          { label: "Database Management", y: 3 },
-          { label: "Security and Networking", y: 5 },
-          { label: "Web Development", y: 3 },
-          { label: "Data and AI", y: 4 },
-          { label: "Cloud and DevOps", y: 3 }
-        ]
-      }
-    ]
+          { label: 'Data and AI', y: 4, color: '#000072' }, // Another custom color
+          { label: 'Database Management', y: 3,color: '#002155'},
+          { label: 'Security and Networking', y: 5, color: '#00003d' }, // Custom color for specific columns
+          { label: 'Web Development', y: 3 ,color: '#002155'},
+          { label: 'Cloud and DevOps', y: 2,color: '#0000d8' },
+        ],
+      },
+    ],
   };
 }

@@ -87,6 +87,9 @@ studentForm!: FormGroup; // Declare the studentForm
     })
   }
   
+  getPaymentClass(payment: string): string {
+    return payment === 'Success' ? 'text-success' : 'text-danger';
+  }
 
   
   get totalPages(): number {
